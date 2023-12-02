@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { DashboardHeaderComponent } from './shared/dashboard-header/dashboard-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    DashboardHeaderComponent
   ],
   imports: [
     BrowserModule,
