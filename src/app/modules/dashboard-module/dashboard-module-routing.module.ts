@@ -4,6 +4,8 @@ import { HomeComponent } from './home/home.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ManageKycComponent } from './manage-kyc/manage-kyc.component';
 import { AuthGuardGuard } from 'src/app/guards/auth/auth.guard';
+import { AddProductComponent } from './add-product/add-product.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,16 @@ const routes: Routes = [
   {
     path: 'kyc-list',
     component: ManageKycComponent,
+    canActivate: [AuthGuardGuard]
+  },
+  {
+    path: 'add-category',
+    component: AddCategoryComponent,
+    canActivate: [AuthGuardGuard]
+  },
+  {
+    path: 'add-product',
+    component: AddProductComponent,
     canActivate: [AuthGuardGuard]
   }
 ];
