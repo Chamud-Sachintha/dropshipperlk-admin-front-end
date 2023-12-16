@@ -14,4 +14,14 @@ export class AuthService {
     const path = environment.apiURL + "login";
     return this.http.post(path, authModel);
   }
+
+  isClientLoggedIn() {
+    const token: any = sessionStorage.getItem("authToken");
+
+    if (token) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -47,7 +47,7 @@
                                             <td *ngIf="eachDoc.status == '1'">Approved</td>
                                             <td>{{ eachDoc.createTime | date }}</td>
                                             <td>
-                                                <button class="btn btn-primary btn-sm">Check</button>
+                                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" (click)="onClickCheckInfo(eachDoc)">Check</button>
                                             </td>
                                         </tr>
                                        </tbody>
@@ -71,4 +71,47 @@
             </div>
         </div>
     </div>
+</div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <label for="">Full Name</label>
+                <input type="text" class="form-control" [(ngModel)]="fullName">
+            </div>
+            <div class="col-12 mt-2">
+                <button class="btn btn-primary" style="width: 100%;" (click)="onClickSeeImage(1)">Check Front NIC Image</button>
+            </div>
+            <div class="col-12 mt-2">
+                <button class="btn btn-primary" style="width: 100%;" (click)="onClickSeeImage(2)">Check Back NIC Image</button>
+            </div>
+            <div class="col-12 mt-2">
+                <label for="">Status</label>
+                <select name="" id="" class="form-control" #status>
+                    <option value="1">Approve</option>
+                    <option value="2">Reject</option>
+                </select>
+            </div>
+            <div class="col-12 mt-3">
+                <button class="btn btn-primary btn-sm" style="float: right;" (click)="onClickUpdateKycStatus(status.value)">Save</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
