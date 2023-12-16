@@ -35,7 +35,11 @@ export class SigninComponent implements OnInit {
       this.authService.loginAdminUser(this.authModel).subscribe((resp: any) => {
 
         if (resp.code === 1) {
-          console.log(resp)
+          sessionStorage.setItem("authToken", resp.token);
+
+          this.router.navigate(['app/home']);
+        } else {
+          
         }
       })
     }

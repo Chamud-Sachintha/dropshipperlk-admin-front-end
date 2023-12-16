@@ -6,13 +6,17 @@ import { HomeComponent } from './home/home.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { ManageKycComponent } from './manage-kyc/manage-kyc.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     AddProductComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    ManageUsersComponent,
+    ManageKycComponent
   ],
   imports: [
     CommonModule,
