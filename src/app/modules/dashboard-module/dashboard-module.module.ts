@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ManageKycComponent } from './manage-kyc/manage-kyc.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { OrderManagementComponent } from './order-management/order-management.component';
+import { CheckOrderComponent } from './check-order/check-order.component';
 
 
 @NgModule({
@@ -16,13 +19,16 @@ import { ManageKycComponent } from './manage-kyc/manage-kyc.component';
     AddProductComponent,
     AddCategoryComponent,
     ManageUsersComponent,
-    ManageKycComponent
+    ManageKycComponent,
+    OrderManagementComponent,
+    CheckOrderComponent
   ],
   imports: [
     CommonModule,
     DashboardModuleRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ]
 })
 export class DashboardModuleModule { }

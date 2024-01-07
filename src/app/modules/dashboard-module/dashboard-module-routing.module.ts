@@ -6,6 +6,8 @@ import { ManageKycComponent } from './manage-kyc/manage-kyc.component';
 import { AuthGuardGuard } from 'src/app/guards/auth/auth.guard';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { OrderManagementComponent } from './order-management/order-management.component';
+import { CheckOrderComponent } from './check-order/check-order.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,16 @@ const routes: Routes = [
   {
     path: 'add-product',
     component: AddProductComponent,
+    canActivate: [AuthGuardGuard]
+  },
+  {
+    path: 'order-management',
+    component: OrderManagementComponent,
+    canActivate: [AuthGuardGuard]
+  },
+  {
+    path: 'check-order/:orderId',
+    component: CheckOrderComponent,
     canActivate: [AuthGuardGuard]
   }
 ];
