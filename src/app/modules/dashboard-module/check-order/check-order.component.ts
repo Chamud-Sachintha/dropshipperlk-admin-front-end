@@ -28,14 +28,41 @@ export class CheckOrderComponent implements OnInit {
     this.loadOrderInfo();
   }
 
+  onClickSetTrackingNumber(trackingNumber: string) {
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+    this.requestParamModel.orderId = this.orderId;
+    this.requestParamModel.trackingNumber = trackingNumber;
+
+    this.orderService.setTrackingNumberOfOrder(this.requestParamModel).subscribe((resp: any) => {
+
+      if (resp.code === 1) {
+        location.reload();
+      }
+    })
+  }
+
+  onClickUpdateOrderStatus(orderStatus: string) {
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+    this.requestParamModel.orderId = this.orderId;
+    this.requestParamModel.orderStatus = orderStatus;
+
+    this.orderService.updateOrderStatusOfOrder(this.requestParamModel).subscribe((resp: any) => {
+
+      if (resp.code === 1) {
+        location.reload();
+      }
+    })
+  }
+
   onClickUpdatePayStatus(paymentStatus: string) {
     this.requestParamModel.token = sessionStorage.getItem("authToken");
     this.requestParamModel.paymentStatus = paymentStatus;
+    this.requestParamModel.orderId = this.orderId;
 
     this.orderService.updatePaymentStatusOfOrder(this.requestParamModel).subscribe((resp: any) => {
 
       if (resp.code === 1) {
-        
+        location.reload();
       }
     })
   }
@@ -67,6 +94,8 @@ export class CheckOrderComponent implements OnInit {
         this.orderInfoModel.quantity = dataList.data[0].quantity;
         this.orderInfoModel.bankSlip = dataList.data[0].bankSlip;
         this.orderInfoModel.paymentMethod = dataList.data[0].paymentMethod;
+        this.orderInfoModel.paymentStatus = dataList.data[0].paymentStatus;
+        this.orderInfoModel.orderStatus = dataList.data[0].orderStatus;
       }
     })
   }

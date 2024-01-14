@@ -24,4 +24,14 @@ export class OrderService {
     const path = environment.apiURL + "update-pay-status";
     return this.http.post(path, requestParamModel);
   }
+
+  updateOrderStatusOfOrder(requestParamModel: Request) {
+    const path = environment.apiURL + "update-order_status";
+    return this.http.post(path, requestParamModel);
+  }
+
+  setTrackingNumberOfOrder(requestParamModel: Request) {
+    const path = environment.apiURL + "set-tracking-number";
+    return this.http.post(path, requestParamModel);
+  }
 }

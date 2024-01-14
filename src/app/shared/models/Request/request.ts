@@ -4,4 +4,6 @@ export class Request {
     status!: string;
     orderId!: string;
     paymentStatus!: string;
+    orderStatus!: string;
+    trackingNumber!: string;
 }
