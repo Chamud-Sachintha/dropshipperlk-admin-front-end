@@ -8,4 +8,6 @@ export class OrderRequest {
     paymentStatus!: string;
     orderStatus!: string;
     totalAmount!: string;
+    paymentMethod!: string;
+    bankSlip!: string;
 }

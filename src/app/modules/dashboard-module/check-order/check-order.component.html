@@ -27,7 +27,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-12">
-                                <h1>{{ this.productInfoModel.productName }}</h1>
+                                <h1>{{ this.orderInfoModel.productName }}</h1>
                             </div>
                         </div>
                         <div class="row">
@@ -38,13 +38,12 @@
                         <div class="row">
                             <div class="col-4">
                                 <label for="">Quantity</label>
-                                <input type="number" class="form-control">
+                                <h2>{{ this.orderInfoModel.quantity }}</h2>
                             </div>
                             <div class="col-1"></div>
-                            <div class="col-4">
-                                <label for="">Product Status</label>
-                                <p *ngIf="this.productInfoModel.inStock" style="font-weight: bolder; color: green; margin-top: 10px;">Available</p>
-                                <p *ngIf="!this.productInfoModel.inStock" style="font-weight: bolder; color: red; margin-top: 10px;">Not Available</p>
+                            <div class="col-5">
+                                <label for="">Total Amount</label>
+                                <h2>LKR. {{ this.orderInfoModel.totalAmount }} .00</h2>
                             </div>
                         </div>
                         <!-- <div class="row mt-3">
@@ -55,6 +54,52 @@
                                 <button class="btn btn-primary btn-sm">Already Listed</button>
                             </div>
                         </div> -->
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Payment Method</label>
+                                <h2>{{ this.orderInfoModel.paymentMethod }}</h2>
+                            </div>
+                            <div class="col-6" *ngIf="this.orderInfoModel.bankSlip">
+                                <button class="btn btn-primary mt-2" style="width: 180px;" (click)="onClickViewBankSlip(this.orderInfoModel.bankSlip)">View Bank Slip</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Payment Status</label>
+                                <select name="" id="" class="form-control" #paymentStatus>
+                                    <option value="">-- Select Payment Status --</option>
+                                    <option value="1">Paid</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary mt-4" (click)="onClickUpdatePayStatus(paymentStatus.value)">Update Payment Status</button>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label for="">Order Status</label>
+                                <select name="" id="" class="form-control" #orderStatus (change)="onChangeStatus(orderStatus.value)">
+                                    <option value="">-- Select Payment Status --</option>
+                                    <option value="1">Hold</option>
+                                    <option value="2">Packaging</option>
+                                    <option value="3">Cancle</option>
+                                    <option value="4">In Courier</option>
+                                    <option value="5">Delivered</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary mt-4">Update Payment Status</button>
+                            </div>
+                        </div>
+                        <div class="row mt-2" *ngIf="this.isShowTrackingNumber">
+                            <div class="col-6">
+                                <label for="">Tracking Number</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary mt-4">Update Tracking Number</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-1">

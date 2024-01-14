@@ -3,4 +3,5 @@ export class Request {
     sellerId!: string;
     status!: string;
     orderId!: string;
+    paymentStatus!: string;
 }

@@ -19,4 +19,9 @@ export class OrderService {
     const path = environment.apiURL + "get-order-info-by-id";
     return this.http.post(path, requestParamModel);
   }
+
+  updatePaymentStatusOfOrder(requestParamModel: Request) {
+    const path = environment.apiURL + "update-pay-status";
+    return this.http.post(path, requestParamModel);
+  }
 }
