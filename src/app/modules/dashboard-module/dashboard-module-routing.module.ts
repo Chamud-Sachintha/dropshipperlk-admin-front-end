@@ -8,6 +8,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { OrderManagementComponent } from './order-management/order-management.component';
 import { CheckOrderComponent } from './check-order/check-order.component';
+import { PayoutLogComponent } from './payout-log/payout-log.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
     path: 'check-order/:orderId',
     component: CheckOrderComponent,
     canActivate: [AuthGuardGuard]
+  },
+  {
+    path: 'payout-management',
+    component: PayoutLogComponent
   }
 ];
 

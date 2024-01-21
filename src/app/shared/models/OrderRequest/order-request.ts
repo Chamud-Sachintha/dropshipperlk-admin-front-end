@@ -10,4 +10,6 @@ export class OrderRequest {
     totalAmount!: string;
     paymentMethod!: string;
     bankSlip!: string;
+    orderCancled!: string;
+    refundNotice!: string;
 }

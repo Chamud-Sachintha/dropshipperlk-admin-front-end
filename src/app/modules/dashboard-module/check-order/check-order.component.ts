@@ -28,6 +28,19 @@ export class CheckOrderComponent implements OnInit {
     this.loadOrderInfo();
   }
 
+  onClickRefundApprove(paymentStatus: string) {
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+    this.requestParamModel.orderId = this.orderId;
+    this.requestParamModel.paymentStatus = paymentStatus;
+
+    this.orderService.refundApprove(this.requestParamModel).subscribe((resp: any) => {
+
+      if (resp.code === 1) {
+        location.reload();
+      }
+    })
+  }
+
   onClickSetTrackingNumber(trackingNumber: string) {
     this.requestParamModel.token = sessionStorage.getItem("authToken");
     this.requestParamModel.orderId = this.orderId;
@@ -96,6 +109,8 @@ export class CheckOrderComponent implements OnInit {
         this.orderInfoModel.paymentMethod = dataList.data[0].paymentMethod;
         this.orderInfoModel.paymentStatus = dataList.data[0].paymentStatus;
         this.orderInfoModel.orderStatus = dataList.data[0].orderStatus;
+        this.orderInfoModel.orderCancled = dataList.data[0].orderCancled;
+        this.orderInfoModel.refundNotice = dataList.data[0].refundNotice;
       }
     })
   }

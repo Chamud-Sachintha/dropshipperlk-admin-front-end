@@ -11,6 +11,7 @@ import { ManageKycComponent } from './manage-kyc/manage-kyc.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { OrderManagementComponent } from './order-management/order-management.component';
 import { CheckOrderComponent } from './check-order/check-order.component';
+import { PayoutLogComponent } from './payout-log/payout-log.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CheckOrderComponent } from './check-order/check-order.component';
     ManageUsersComponent,
     ManageKycComponent,
     OrderManagementComponent,
-    CheckOrderComponent
+    CheckOrderComponent,
+    PayoutLogComponent
   ],
   imports: [
     CommonModule,

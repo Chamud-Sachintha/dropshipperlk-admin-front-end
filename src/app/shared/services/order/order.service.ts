@@ -34,4 +34,9 @@ export class OrderService {
     const path = environment.apiURL + "set-tracking-number";
     return this.http.post(path, requestParamModel);
   }
+
+  refundApprove(requestParamModel: Request) {
+    const path = environment.apiURL + "refund-approve";
+    return this.http.post(path, requestParamModel);
+  }
 }
