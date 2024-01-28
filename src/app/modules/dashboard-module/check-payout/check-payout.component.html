@@ -1,0 +1,105 @@
+<div class="row">
+    <!-- <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+        <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner> -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Hello, Welcome Back Chamud Sachintha </h2>
+            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis
+                faucibus at enim quis massa lobortis rutrum.</p>
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h2 class="m-b-20" style="color: white;">Total Payout Amount</h2>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>LKR. {{ this.payOutModel.totalPayOutAmount }} .00</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h2 class="m-b-20" style="color: white;">Pending Amount</h2>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>LKR. {{ this.payOutModel.totalPendingAmount }} .00</span></h2>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-primary btn-sm" (click)="onClickReleasePayOut(this.payOutModel.totalPendingAmount)">Release Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h2 class="m-b-20" style="color: white;">Today Payout Amount</h2>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>LKR. {{ this.payOutModel.todayPayOutAmount }} .00</span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="card-header">Ongoing Order Requests List</h5>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered first">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Seller Name</th>
+                                        <th>Before Balance</th>
+                                        <th>Payout Amount</th>
+                                        <th>Current Balance</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                               <tbody>
+                                <tr *ngFor="let eachData of this.payOutLogList; index as i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ eachData.sellerName }}</td>
+                                    <td>{{ eachData.beforeBalance }}</td>
+                                    <td>{{ eachData.payOutAmount }}</td>
+                                    <td>{{ eachData.currentBalance }}</td>
+                                    <td>{{ eachData.createDate }}</td>
+                                </tr>
+                               </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Seller Name</th>
+                                        <th>Before Balance</th>
+                                        <th>Payout Amount</th>
+                                        <th>Current Balance</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

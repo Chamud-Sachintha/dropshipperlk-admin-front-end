@@ -9,6 +9,7 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { OrderManagementComponent } from './order-management/order-management.component';
 import { CheckOrderComponent } from './check-order/check-order.component';
 import { PayoutLogComponent } from './payout-log/payout-log.component';
+import { CheckPayoutComponent } from './check-payout/check-payout.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'payout-management',
     component: PayoutLogComponent
+  },
+  {
+    path: 'payout-management/:sellerId',
+    component: CheckPayoutComponent
   }
 ];
 

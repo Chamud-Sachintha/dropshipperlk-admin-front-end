@@ -6,4 +6,5 @@ export class Request {
     paymentStatus!: string;
     orderStatus!: string;
     trackingNumber!: string;
+    amount!: string;
 }
