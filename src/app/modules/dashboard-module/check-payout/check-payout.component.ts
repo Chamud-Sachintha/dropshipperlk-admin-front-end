@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { PayOut } from 'src/app/shared/models/PayOut/pay-out';
 import { PayOutLog } from 'src/app/shared/models/PayOutLog/pay-out-log';
 import { Request } from 'src/app/shared/models/Request/request';
@@ -17,7 +19,8 @@ export class CheckPayoutComponent implements OnInit {
   payOutLogList: PayOutLog[] = [];
   sellerId!: string;
 
-  constructor(private activatedRoute: ActivatedRoute, private payOutService: PayOutService) {}
+  constructor(private activatedRoute: ActivatedRoute, private payOutService: PayOutService
+              , private tostr: ToastrService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.sellerId = this.activatedRoute.snapshot.params['sellerId'];
@@ -29,13 +32,18 @@ export class CheckPayoutComponent implements OnInit {
     this.requestPatamModel.sellerId = this.sellerId;
     this.requestPatamModel.amount = amount;
 
+    this.spinner.show();
     this.payOutService.releasePayOut(this.requestPatamModel).subscribe((resp: any) => {
 
       const dataList = JSON.parse(JSON.stringify(resp));
 
       if (resp.code === 1) {
-        
+        this.tostr.success("Release payout", "Sucess");
+      } else {
+        this.tostr.error("Release Payouit", resp.mesage);
       }
+
+      this.spinner.hide();
     })
   }
 

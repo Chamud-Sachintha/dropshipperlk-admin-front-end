@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/shared/models/Category/category';
+import { Product } from 'src/app/shared/models/Product/product';
+import { Request } from 'src/app/shared/models/Request/request';
 import { SearchParam } from 'src/app/shared/models/SearchParam/search-param';
 import { CategoryService } from 'src/app/shared/services/Category/category.service';
 import { ProductService } from 'src/app/shared/services/Product/product.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-add-product',
@@ -17,15 +21,39 @@ export class AddProductComponent implements OnInit {
   createProfuctForm!: FormGroup;
   selectedImageFile: File[] = [];
   searchParamModel = new SearchParam();
+  requestParamModel = new Request();
   categoryList: Category[] = [];
+  productInfoList: Product[] = [];
 
   constructor(private formBuilder: FormBuilder, private router: Router, private productService: ProductService
             , private categoryService: CategoryService
+            , private tosr: ToastrService
             , private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.initCreateProductForm();
     this.loadCategoryList();
+    this.loadProductList();
+  }
+
+  loadProductList() {
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+
+    this.productService.getProductList(this.requestParamModel).subscribe((resp: any) => {
+
+      const dataList = JSON.parse(JSON.stringify(resp));
+
+      if (resp.code === 1) {
+        dataList.data[0].forEach((eachData: Product) => {
+          const formatedDate = parseInt(eachData.createTime) * 1000;
+          const thumbnail = environment.devServer + "images/" + eachData.image;
+
+          eachData.image = thumbnail;
+          eachData.createTime = formatedDate.toString();
+          this.productInfoList.push(eachData);
+        })
+      }
+    })
   }
 
   loadCategoryList() {
@@ -101,10 +129,13 @@ export class AddProductComponent implements OnInit {
         formData.append("image" + index, eachImage);
       })
 
+      this.spinner.show();
       this.productService.addProduct(formData).subscribe((resp: any) => {
 
         if (resp.code === 1) {
-          
+          this.tosr.success("Add New Product", "Product Added Successully");
+        } else {
+          this.tosr.error("Add New Prodyct", resp.message)
         }
       })
     // }

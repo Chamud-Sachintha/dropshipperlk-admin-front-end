@@ -1,6 +1,7 @@
 export class Product {
     id!: string;
     productName!: string;
+    image!: string;
     categoryName!: string;
     description!: string;
     inStock!: boolean;

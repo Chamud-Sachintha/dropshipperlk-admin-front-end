@@ -1,15 +1,88 @@
-<div class="row">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="page-header">
-            <h2 class="pageheader-title">Hello, Welcome Back Chamud Sachintha </h2>
-            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
-            <div class="page-breadcrumb">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>
-                    </ol>
-                </nav>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Pending Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{ this.dashboardModel.pendingOrderCount }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">In Courier Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{ this.dashboardModel.inCourierOrderCount }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Delivered Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{ this.dashboardModel.completeOrderCount }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Cancled Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ this.dashboardModel.cancleOrders }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Paid Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ this.dashboardModel.paidOrders }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Completed Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>0</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ this.dashboardModel.totalOrders }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Recieved Earnings</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ this.dashboardModel.totalEarnigs }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Pending Payment</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ this.dashboardModel.pendingPayment }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
             </div>
         </div>
     </div>

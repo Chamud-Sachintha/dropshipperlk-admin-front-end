@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { OrderRequest } from 'src/app/shared/models/OrderRequest/order-request';
 import { Product } from 'src/app/shared/models/Product/product';
 import { Request } from 'src/app/shared/models/Request/request';
@@ -19,7 +21,8 @@ export class CheckOrderComponent implements OnInit {
   orderId!: string;
   isShowTrackingNumber = false;
 
-  constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute) {}
+  constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute
+              , private tostr: ToastrService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
 
@@ -33,11 +36,17 @@ export class CheckOrderComponent implements OnInit {
     this.requestParamModel.orderId = this.orderId;
     this.requestParamModel.paymentStatus = paymentStatus;
 
+    this.spinner.show();
     this.orderService.refundApprove(this.requestParamModel).subscribe((resp: any) => {
 
       if (resp.code === 1) {
+        this.tostr.success("Approve Refund", "Approve Refund Siccessfully");
         location.reload();
+      } else {
+        this.tostr.error("Approve Refund", resp.message);
       }
+
+      this.spinner.hide();
     })
   }
 
@@ -46,11 +55,17 @@ export class CheckOrderComponent implements OnInit {
     this.requestParamModel.orderId = this.orderId;
     this.requestParamModel.trackingNumber = trackingNumber;
 
+    this.spinner.show();
     this.orderService.setTrackingNumberOfOrder(this.requestParamModel).subscribe((resp: any) => {
 
       if (resp.code === 1) {
+        this.tostr.success("Set Tracking Number", "Tracking Number Updated Successfully");
         location.reload();
+      } else {
+        this.tostr.error("Set Tracking Number", resp.message);
       }
+
+      this.spinner.hide();
     })
   }
 
@@ -59,11 +74,17 @@ export class CheckOrderComponent implements OnInit {
     this.requestParamModel.orderId = this.orderId;
     this.requestParamModel.orderStatus = orderStatus;
 
+    this.spinner.show();
     this.orderService.updateOrderStatusOfOrder(this.requestParamModel).subscribe((resp: any) => {
 
       if (resp.code === 1) {
+        this.tostr.success("Update Order Status", "Order Status Updated Successfully");
         location.reload();
+      } else {
+        this.tostr.error("Update Order Statuys", resp.message);
       }
+
+      this.spinner.hide();
     })
   }
 
@@ -72,11 +93,17 @@ export class CheckOrderComponent implements OnInit {
     this.requestParamModel.paymentStatus = paymentStatus;
     this.requestParamModel.orderId = this.orderId;
 
+    this.spinner.show();
     this.orderService.updatePaymentStatusOfOrder(this.requestParamModel).subscribe((resp: any) => {
 
       if (resp.code === 1) {
+        this.tostr.success("Update Payment Sdatus", "Payment Status Updated Successfully");
         location.reload();
+      } else {
+        this.tostr.error("Update Payment Status", resp.message);
       }
+
+      this.spinner.hide();
     })
   }
 

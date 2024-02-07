@@ -7,4 +7,5 @@ export class Request {
     orderStatus!: string;
     trackingNumber!: string;
     amount!: string;
+    orderNumbers: any[] = [];
 }
