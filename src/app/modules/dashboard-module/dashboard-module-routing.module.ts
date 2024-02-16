@@ -10,6 +10,7 @@ import { OrderManagementComponent } from './order-management/order-management.co
 import { CheckOrderComponent } from './check-order/check-order.component';
 import { PayoutLogComponent } from './payout-log/payout-log.component';
 import { CheckPayoutComponent } from './check-payout/check-payout.component';
+import { SiteSettingsComponent } from './site-settings/site-settings.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,10 @@ const routes: Routes = [
   {
     path: 'payout-management/:sellerId',
     component: CheckPayoutComponent
+  },
+  {
+    path: 'site-settings',
+    component: SiteSettingsComponent
   }
 ];
 

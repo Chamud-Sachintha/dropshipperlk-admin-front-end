@@ -1,0 +1,41 @@
+<div class="row">
+    <!-- <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+        <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner> -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Hello, Welcome Back Chamud Sachintha </h2>
+            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis
+                faucibus at enim quis massa lobortis rutrum.</p>
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <h5 class="card-header">Add Banner</h5>
+
+            <div class="card-body">
+                <form [formGroup]="siteBannerUploadForm" (ngSubmit)="onSubmitSiteBannerUploadForm()">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Add Banner Image</label>
+                            <input type="file" class="form-control" (change)="onChangeSiteBannerImage($event)">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button class="btn btn-primary btn-sm" type="submit">Upload Banner</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
