@@ -138,6 +138,10 @@ export class CheckOrderComponent implements OnInit {
         this.orderInfoModel.orderStatus = dataList.data[0].orderStatus;
         this.orderInfoModel.orderCancled = dataList.data[0].orderCancled;
         this.orderInfoModel.refundNotice = dataList.data[0].refundNotice;
+        this.orderInfoModel.image1 = environment.devServer + "images/" + dataList.data[0].images.image0;
+        this.orderInfoModel.image2 = environment.devServer + "images/" + dataList.data[0].images.image1;
+        this.orderInfoModel.image3 = environment.devServer + "images/" + dataList.data[0].images.image2;
+        this.orderInfoModel.image4 = environment.devServer + "images/" + dataList.data[0].images.image3;
       }
     })
   }

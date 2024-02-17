@@ -12,4 +12,9 @@ export class OrderRequest {
     bankSlip!: string;
     orderCancled!: string;
     refundNotice!: string;
+    images!: string;
+    image1!: string;
+    image2!: string;
+    image3!: string;
+    image4!: string;
 }
