@@ -14,6 +14,7 @@ import { CheckOrderComponent } from './check-order/check-order.component';
 import { PayoutLogComponent } from './payout-log/payout-log.component';
 import { CheckPayoutComponent } from './check-payout/check-payout.component';
 import { SiteSettingsComponent } from './site-settings/site-settings.component';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SiteSettingsComponent } from './site-settings/site-settings.component';
     CheckOrderComponent,
     PayoutLogComponent,
     CheckPayoutComponent,
-    SiteSettingsComponent
+    SiteSettingsComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,

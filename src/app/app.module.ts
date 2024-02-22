@@ -10,13 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardLayoutComponent,
     AuthLayoutComponent,
-    DashboardHeaderComponent
+    DashboardHeaderComponent,
   ],
   imports: [
     BrowserModule,

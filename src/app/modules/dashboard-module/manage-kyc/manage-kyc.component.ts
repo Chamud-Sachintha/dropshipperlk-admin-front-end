@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { KYCInfoModel } from 'src/app/shared/models/KYCInfoModel/kycinfo-model';
 import { Request } from 'src/app/shared/models/Request/request';
 import { SearchParam } from 'src/app/shared/models/SearchParam/search-param';
@@ -20,7 +21,7 @@ export class ManageKycComponent implements OnInit {
   fullName = '';
   sellerId = '';
 
-  constructor(private kycService: KycService) {}
+  constructor(private kycService: KycService, private tostr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadKycList();
@@ -30,7 +31,7 @@ export class ManageKycComponent implements OnInit {
     this.requestMode.token = sessionStorage.getItem("authToken");
 
     if (status == "") {
-
+      this.tostr.error("Empty Fields Founded", "Status is required.");
     } else {
       this.requestMode.sellerId = this.sellerId;
       this.requestMode.status = status;
@@ -38,7 +39,9 @@ export class ManageKycComponent implements OnInit {
       this.kycService.updateKyc(this.requestMode).subscribe((resp: any) => {
 
         if (resp.code === 1) {
-
+          this.tostr.success("KYC Status Updating", "KYC Status Updated Successfully");
+        } else {
+          this.tostr.error("Error Occured", resp.message);
         }
       })
     }
@@ -54,9 +57,9 @@ export class ManageKycComponent implements OnInit {
   onClickSeeImage(type: number) {
 
     if (type == 1) {
-      window.open(environment.fileServer + this.frontNICImage)
+      window.open(environment.fileServerBack + "kyc/" + this.frontNICImage)
     } else {
-      window.open(environment.fileServer + this.backNICImage)
+      window.open(environment.fileServerBack + "kyc/" + this.backNICImage)
     }
   }
 

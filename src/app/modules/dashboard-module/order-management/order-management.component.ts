@@ -17,6 +17,7 @@ export class OrderManagementComponent implements OnInit {
   orderRequestList: OrderRequest[] = [];
   selectedOrdersToPrint = 0;
   selectedOrderNumbers: any[] = [];
+  searchText = '';
 
   constructor(private orderService: OrderService, private route: Router, private printService: PrintService) {}
 
