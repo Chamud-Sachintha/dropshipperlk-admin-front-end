@@ -19,11 +19,14 @@ import { environment } from 'src/environments/environment.development';
 export class AddProductComponent implements OnInit {
 
   createProfuctForm!: FormGroup;
+  updateProductForm!: FormGroup;
   selectedImageFile: File[] = [];
   searchParamModel = new SearchParam();
   requestParamModel = new Request();
   categoryList: Category[] = [];
   productInfoList: Product[] = [];
+  productModel = new Product;
+  productId!: string;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private productService: ProductService
             , private categoryService: CategoryService
@@ -32,8 +35,63 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.initCreateProductForm();
+    this.initUpdateProductForm();
     this.loadCategoryList();
     this.loadProductList();
+  }
+
+  onClickGetProductInfo(productId: string) {
+    this.requestParamModel.productId = productId;
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+
+    this.productId = productId
+
+    this.productService.getProductInfoById(this.requestParamModel).subscribe((resp: any) => {
+
+      const dataList = JSON.parse(JSON.stringify(resp));
+
+      if (resp.code === 1) {
+        this.updateProductForm.controls['productName'].setValue(dataList.data[0].productName);
+        this.updateProductForm.controls['description'].setValue(dataList.data[0].description);
+        this.updateProductForm.controls['price'].setValue(dataList.data[0].price);
+      }
+    })
+  }
+
+  onSubmitUpdateProductForm() {
+    const productName = this.updateProductForm.controls['productName'].value;
+    const description = this.updateProductForm.controls['description'].value;
+    const price = this.updateProductForm.controls['price'].value;
+
+    if (productName == "") {
+      this.tosr.error("Empty Field Found", "Product Name is Required.");
+    } else if (description == "") {
+      this.tosr.error("Empty Field Found", "Description is Required.");
+    } else if (price == "") {
+      this.tosr.error("Empty Field Found", "Price is Required.");
+    } else {
+      this.productModel.token = sessionStorage.getItem("authToken");
+      this.productModel.productName = productName;
+      this.productModel.description = description;
+      this.productModel.price = price;
+      this.productModel.productId = this.productId;
+
+      this.productService.updateProduct(this.productModel).subscribe((resp: any) => {
+        if (resp.code === 1) {
+          this.tosr.success("Update Product", "Product Updated Successfully.");
+        } else {
+          this.tosr.error("Update Product", resp.message);
+        }
+      })
+    }
+  }
+
+  initUpdateProductForm() {
+    this.updateProductForm = this.formBuilder.group({
+      productName: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', Validators.required]
+    })
   }
 
   loadProductList() {

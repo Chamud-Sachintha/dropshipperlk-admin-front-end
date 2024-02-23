@@ -12,6 +12,8 @@ export class OrderRequest {
     bankSlip!: string;
     orderCancled!: string;
     refundNotice!: string;
+    productPrice!: string;
+    resellPrice!: string;
     images!: string;
     image1!: string;
     image2!: string;

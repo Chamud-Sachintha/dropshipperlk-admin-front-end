@@ -20,4 +20,14 @@ export class ProductService {
     const path = environment.apiURL + "get-product-list";
     return this.http.post(path, requestParamModel);
   }
+
+  updateProduct(productInfo: Product) {
+    const path = environment.apiURL + "update-product";
+    return this.http.post(path, productInfo);
+  }
+
+  getProductInfoById(requestParamModel: Request) {
+    const path = environment.apiURL + "get-product-info-by-id";
+    return this.http.post(path, requestParamModel);
+  }
 }

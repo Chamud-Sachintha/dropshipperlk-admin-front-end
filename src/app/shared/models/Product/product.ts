@@ -1,4 +1,5 @@
 export class Product {
+    token!: any;
     id!: string;
     productName!: string;
     image!: string;
@@ -10,4 +11,5 @@ export class Product {
     directCommision!: string;
     isResell!: boolean;
     createTime!: string;
+    productId!: string;
 }

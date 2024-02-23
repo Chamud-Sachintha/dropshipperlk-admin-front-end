@@ -8,4 +8,5 @@ export class Request {
     trackingNumber!: string;
     amount!: string;
     orderNumbers: any[] = [];
+    productId!: string;
 }

@@ -18,6 +18,7 @@ export class CheckOrderComponent implements OnInit {
   requestParamModel = new Request();
   productInfoModel = new Product();
   orderInfoModel = new OrderRequest();
+  orderRequestList: OrderRequest[] = [];
   orderId!: string;
   isShowTrackingNumber = false;
 
@@ -129,19 +130,24 @@ export class CheckOrderComponent implements OnInit {
       const dataList = JSON.parse(JSON.stringify(resp))
 
       if (resp.code === 1) {
-        this.orderInfoModel.productName = dataList.data[0].productName;
+
+        dataList.data.forEach((eachData: OrderRequest, index: any) => {
+          const dataObj: any = eachData;
+          this.orderRequestList.push(dataObj[index]);
+        })
+        // this.orderInfoModel.productName = dataList.data[0].productName;
         this.orderInfoModel.totalAmount = dataList.data[0].totalAmount;
-        this.orderInfoModel.quantity = dataList.data[0].quantity;
+        // this.orderInfoModel.quantity = dataList.data[0].quantity;
         this.orderInfoModel.bankSlip = dataList.data[0].bankSlip;
         this.orderInfoModel.paymentMethod = dataList.data[0].paymentMethod;
         this.orderInfoModel.paymentStatus = dataList.data[0].paymentStatus;
         this.orderInfoModel.orderStatus = dataList.data[0].orderStatus;
         this.orderInfoModel.orderCancled = dataList.data[0].orderCancled;
         this.orderInfoModel.refundNotice = dataList.data[0].refundNotice;
-        this.orderInfoModel.image1 = environment.devServer + "images/" + dataList.data[0].images.image0;
-        this.orderInfoModel.image2 = environment.devServer + "images/" + dataList.data[0].images.image1;
-        this.orderInfoModel.image3 = environment.devServer + "images/" + dataList.data[0].images.image2;
-        this.orderInfoModel.image4 = environment.devServer + "images/" + dataList.data[0].images.image3;
+        // this.orderInfoModel.image1 = environment.devServer + "images/" + dataList.data[0].images.image0;
+        // this.orderInfoModel.image2 = environment.devServer + "images/" + dataList.data[0].images.image1;
+        // this.orderInfoModel.image3 = environment.devServer + "images/" + dataList.data[0].images.image2;
+        // this.orderInfoModel.image4 = environment.devServer + "images/" + dataList.data[0].images.image3;
       }
     })
   }
