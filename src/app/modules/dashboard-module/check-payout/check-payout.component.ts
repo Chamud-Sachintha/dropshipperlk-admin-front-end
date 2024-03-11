@@ -6,6 +6,7 @@ import { PayOut } from 'src/app/shared/models/PayOut/pay-out';
 import { PayOutLog } from 'src/app/shared/models/PayOutLog/pay-out-log';
 import { Request } from 'src/app/shared/models/Request/request';
 import { PayOutService } from 'src/app/shared/services/pay-out/pay-out.service';
+import { BankDetails } from 'src/app/shared/models/BankDetails/bank-details';
 
 @Component({
   selector: 'app-check-payout',
@@ -16,6 +17,7 @@ export class CheckPayoutComponent implements OnInit {
 
   requestPatamModel = new Request();
   payOutModel = new PayOut();
+  BankDetails = new BankDetails();
   payOutLogList: PayOutLog[] = [];
   sellerId!: string;
 
@@ -59,6 +61,10 @@ export class CheckPayoutComponent implements OnInit {
         this.payOutModel.totalPayOutAmount = dataList.data[0].totalPayOutAmount;
         this.payOutModel.totalPendingAmount = dataList.data[0].totalPendingAmount;
         this.payOutModel.todayPayOutAmount = dataList.data[0].todayPayOutAmount;
+        this.BankDetails.AccountNumber = dataList.data[0].account_number;
+        this.BankDetails.BankName = dataList.data[0].bank_name;
+        this.BankDetails.BranchCode = dataList.data[0].branch_code;
+        this.BankDetails.Name = dataList.data[0].resellr_name;
 
         dataList.data[0].list.forEach((eachData: PayOutLog) => {
           this.payOutLogList.push(eachData)

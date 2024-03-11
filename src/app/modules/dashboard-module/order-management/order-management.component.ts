@@ -1,28 +1,52 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { OrderRequest } from 'src/app/shared/models/OrderRequest/order-request';
 import { Request } from 'src/app/shared/models/Request/request';
 import { OrderService } from 'src/app/shared/services/order/order.service';
 import { PrintService } from 'src/app/shared/services/print/print.service';
+
+interface CustomerDetails {
+  order: string;
+  name: string ;
+  contact_1: string;
+  contact_2: string;
+  address: string;
+}
 
 @Component({
   selector: 'app-order-management',
   templateUrl: './order-management.component.html',
   styleUrls: ['./order-management.component.css']
 })
+
+
+
 export class OrderManagementComponent implements OnInit {
 
   requestParamModel = new Request();
+  reqwustOrderCusDetails: any = {};
   orderRequestList: OrderRequest[] = [];
   selectedOrdersToPrint = 0;
   selectedOrderNumbers: any[] = [];
   searchText = '';
+  CustomerForm! : FormGroup;
+  OrderCusDetails: CustomerDetails | null = null;
+  
 
-  constructor(private orderService: OrderService, private route: Router, private printService: PrintService) {}
+  constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadOrderRequestList();
+    this.CustomerForm = this.fb.group({
+      order:['', Validators.required],
+      name: ['', Validators.required],
+      contact_1: ['', Validators.required],
+      contact_2: ['', Validators.required],
+      address: ['', Validators.required],
+    });
   }
 
   onClickPrintWayBillPdf() {
@@ -86,4 +110,48 @@ export class OrderManagementComponent implements OnInit {
     })
   }
 
+  onClickLoadModel(orderId: string) {
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+    this.requestParamModel.Oid = orderId;
+  
+    this.orderService.getOrderCustomerData(this.requestParamModel).subscribe((resp: any) => {
+      const dataList = JSON.parse(JSON.stringify(resp));
+  
+      if (resp.code === 1 && resp.data && resp.data.length > 0) {
+        this.OrderCusDetails = resp.data[0]!;
+        console.log("asd", this.OrderCusDetails);
+  
+        if (this.OrderCusDetails) {
+         
+          this.CustomerForm.patchValue({
+            order: this.OrderCusDetails.order || '',
+            name: this.OrderCusDetails.name || '',
+            contact_1: this.OrderCusDetails.contact_1 || '',
+            contact_2: this.OrderCusDetails.contact_2 || '',
+            address: this.OrderCusDetails.address || '',
+          });
+        }
+      }
+    });
+  }
+  
+
+  onSubmitAddQuantityForm(){
+    this.reqwustOrderCusDetails.token = sessionStorage.getItem("authToken");
+    this.reqwustOrderCusDetails.order = this.CustomerForm.value.order;
+    this.reqwustOrderCusDetails.contact_1 = this.CustomerForm.value.contact_1;
+    this.reqwustOrderCusDetails.contact_2 = this.CustomerForm.value.contact_2;
+    this.reqwustOrderCusDetails.address = this.CustomerForm.value.address;
+
+    this.orderService.UpdateCusdata(this.reqwustOrderCusDetails).subscribe((resp: any) => {
+
+      const dataList = JSON.parse(JSON.stringify(resp));
+
+      if (resp.code === 1) {
+        this.toastr.success('Operation Complete', 'Success');
+        window.location.reload();
+      }
+    })
+      console.log('Form submitted:', this.reqwustOrderCusDetails);
+  }
 }

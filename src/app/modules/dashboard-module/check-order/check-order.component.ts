@@ -51,11 +51,12 @@ export class CheckOrderComponent implements OnInit {
     })
   }
 
-  onClickSetTrackingNumber(trackingNumber: string) {
+  onClickSetTrackingNumber(trackingNumber: string, courierName: string) {
     this.requestParamModel.token = sessionStorage.getItem("authToken");
     this.requestParamModel.orderId = this.orderId;
     this.requestParamModel.trackingNumber = trackingNumber;
-
+    this.requestParamModel.courierName = courierName;
+    console.log('set Tracking Number : ', this.requestParamModel);
     this.spinner.show();
     this.orderService.setTrackingNumberOfOrder(this.requestParamModel).subscribe((resp: any) => {
 
@@ -144,6 +145,8 @@ export class CheckOrderComponent implements OnInit {
         this.orderInfoModel.orderStatus = dataList.data[0].orderStatus;
         this.orderInfoModel.orderCancled = dataList.data[0].orderCancled;
         this.orderInfoModel.refundNotice = dataList.data[0].refundNotice;
+       // this.orderInfoModel.trackingNumber = dataList.data[0].trackingNumber;
+       // this.orderInfoModel.courierName = dataList.data[0].courierName;
         // this.orderInfoModel.image1 = environment.devServer + "images/" + dataList.data[0].images.image0;
         // this.orderInfoModel.image2 = environment.devServer + "images/" + dataList.data[0].images.image1;
         // this.orderInfoModel.image3 = environment.devServer + "images/" + dataList.data[0].images.image2;

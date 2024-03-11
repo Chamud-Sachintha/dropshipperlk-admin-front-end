@@ -15,6 +15,9 @@ import { PayoutLogComponent } from './payout-log/payout-log.component';
 import { CheckPayoutComponent } from './check-payout/check-payout.component';
 import { SiteSettingsComponent } from './site-settings/site-settings.component';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
     DashboardModuleRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    HttpClientModule, 
+    AngularEditorModule
+    
   ]
 })
 export class DashboardModuleModule { }

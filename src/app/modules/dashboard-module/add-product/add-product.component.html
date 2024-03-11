@@ -93,7 +93,8 @@
                     <div class="row mt-3">
                         <div class="col-6">
                             <label for="">Description</label>
-                            <textarea name="" class="form-control" id="" cols="30" rows="10" formControlName="description"></textarea>
+                          <!--  <textarea name="" class="form-control" id="" cols="30" rows="10" formControlName="description"></textarea> -->
+                          <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
                         </div>
                         <div class="col-6">
                             <label for="">Product Weight (g)</label>
@@ -138,7 +139,7 @@
                                             <img src="{{ eachData.image }}" style="width: 200px;" alt="">
                                         </td>
                                         <td>{{ eachData.categoryName }}</td>
-                                        <td>{{ eachData.description }}</td>
+                                        <td [innerHTML]="eachData.description"></td>
                                         <td>{{ eachData.price }}</td>
                                         <td>{{ eachData.createTime | date }}</td>
                                         <td>

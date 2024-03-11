@@ -70,6 +70,8 @@
                                     <!-- <th>Quantity</th> -->
                                     <th>Payment Status</th>
                                     <th>Order Status</th>
+                                    <th>Tracking Number</th>
+                                    <th>Courier Name</th>
                                     <th>Total Amount</th>
                                     <th>Actions</th>
                                 </tr>
@@ -84,6 +86,8 @@
                                 <!-- <td>{{ eachOrder.quantity }}</td> -->
                                 <td>{{ eachOrder.paymentStatus }}</td>
                                 <td>{{ eachOrder.orderStatus }}</td>
+                                <td>{{ eachOrder.trackingNumber }}</td>
+                                <td>{{ eachOrder.courierName }}</td>
                                 <td>{{ eachOrder.totalAmount }} .00</td>
                                 <td>
                                     <div class="row text-center">
@@ -91,7 +95,11 @@
                                             <button class="btn btn-primary btn-sm" (click)="onClickViewOrder(eachOrder.id)" style="width: 120px;">View Order</button>
                                         </div>
                                         <div class="col-12 mt-1" id="s{{ i }}">
-                                            <button class="btn btn-success btn-sm" style="width: 120px;      " (click)="onClickSelectToPrint(i, eachOrder.order)">Select to Print</button>
+                                            <button class="btn btn-success btn-sm" style="width: 120px;" (click)="onClickSelectToPrint(i, eachOrder.order)">Select to Print</button>
+                                        </div>
+                                        <div class="col-12  mt-1">
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal2" (click)="onClickLoadModel(eachOrder.id)" style="width: 120px;">Edit Details</button>
+
                                         </div>
                                         <div class="col-12 mt-1" id="{{ i }}" style="display: none;">
                                             <button class="btn btn-danger btn-sm" style="width: 120px;" (click)="onClickRemoveSelected(i, eachOrder.order)">Remove</button>
@@ -118,6 +126,54 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Customer Order Details</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
+                <form [formGroup]="CustomerForm" (ngSubmit)="onSubmitAddQuantityForm()">
+                  <div class="row">
+                    <div class="col-12">
+                      <label for="name">customer Name :</label>
+                      <input type="text" class="form-control" id="name" formControlName="name" readonly>
+                      <input type="hidden" class="form-control" id="order" formControlName="order" readonly>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <label for="contact_1">Contact Number 01 :</label>
+                      <input type="text" class="form-control" id="contact_1" formControlName="contact_1" required>
+                      <div *ngIf="CustomerForm?.get('contact_1')?.hasError('required') && CustomerForm?.get('contact_1')?.touched" style="color: red;">
+                        Contact Number 01 is required
+                      </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <label for="contact_2">Contact Number 02:</label>
+                      <input type="text" class="form-control" id="contact_2" formControlName="contact_2" required>
+                      <div *ngIf="CustomerForm?.get('contact_2')?.hasError('required') && CustomerForm?.get('contact_2')?.touched" style="color: red;">
+                        Contact Number 02 is required
+                      </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <label for="address">Address:</label>
+                      <textarea class="form-control" id="address" formControlName="address" rows="3"></textarea>
+                      <div *ngIf="CustomerForm?.get('address')?.hasError('required') && CustomerForm?.get('address')?.touched" style="color: red;">
+                        Address is required
+                      </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
         </div>
     </div>
 </div>

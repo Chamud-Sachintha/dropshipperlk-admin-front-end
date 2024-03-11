@@ -1,4 +1,5 @@
 export class Request {
+    Oid!:  string;
     token!: any;
     sellerId!: string;
     status!: string;
@@ -9,4 +10,6 @@ export class Request {
     amount!: string;
     orderNumbers: any[] = [];
     productId!: string;
+    courierName!: string;
+  selectedReportType: any;
 }

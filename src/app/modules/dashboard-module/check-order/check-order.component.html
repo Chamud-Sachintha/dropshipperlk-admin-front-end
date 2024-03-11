@@ -138,6 +138,7 @@
                                                     <option value="3">Cancle</option>
                                                     <option value="4">In Courier</option>
                                                     <option value="5">Delivered</option>
+                                                    <option value="6">Returned</option>
                                                 </select>
                                             </div>
                                             <div class="col-6">
@@ -152,7 +153,11 @@
                                         <input type="text" class="form-control" #trackingNumber>
                                     </div>
                                     <div class="col-6">
-                                        <button class="btn btn-primary mt-4" (click)="onClickSetTrackingNumber(trackingNumber.value)">Update Tracking Number</button>
+                                        <label for="">Courier Nmae</label>
+                                        <input type="text" class="form-control" #courierName>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-primary mt-4" (click)="onClickSetTrackingNumber(trackingNumber.value, courierName.value)">Update Tracking Number</button>
                                     </div>
                                 </div>
                                 <div *ngIf="this.orderInfoModel.orderCancled == '1'">

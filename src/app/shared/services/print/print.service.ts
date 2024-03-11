@@ -14,4 +14,9 @@ export class PrintService {
     const path = environment.apiURL + "view-pdf";
     return this.http.post(path, requestParamModel);
   }
+
+  DownOrderRepport(requestParamModel: Request) {
+    const path = environment.apiURL + "DownloadExcel";
+    return this.http.post(path, requestParamModel, { responseType: 'blob' }); 
+  }
 }

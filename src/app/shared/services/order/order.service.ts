@@ -39,4 +39,14 @@ export class OrderService {
     const path = environment.apiURL + "refund-approve";
     return this.http.post(path, requestParamModel);
   }
+
+  getOrderCustomerData(requestParamModel: Request){
+    const path = environment.apiURL + "get-order-info-by-Cus";
+    return this.http.post(path, requestParamModel);
+  }
+
+  UpdateCusdata(reqwustOrderCusDetails: Request){
+    const path = environment.apiURL + "Update-order-info-by-Cus";
+    return this.http.post(path, reqwustOrderCusDetails);
+  }
 }

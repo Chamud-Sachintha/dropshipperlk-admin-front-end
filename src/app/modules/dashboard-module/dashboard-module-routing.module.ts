@@ -11,6 +11,7 @@ import { CheckOrderComponent } from './check-order/check-order.component';
 import { PayoutLogComponent } from './payout-log/payout-log.component';
 import { CheckPayoutComponent } from './check-payout/check-payout.component';
 import { SiteSettingsComponent } from './site-settings/site-settings.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,10 @@ const routes: Routes = [
   {
     path: 'site-settings',
     component: SiteSettingsComponent
+  },
+  {
+    path: 'DownloadReport',
+    component: ReportsComponent
   }
 ];
 

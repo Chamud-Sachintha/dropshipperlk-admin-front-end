@@ -14,6 +14,8 @@ export class OrderRequest {
     refundNotice!: string;
     productPrice!: string;
     resellPrice!: string;
+    trackingNumber!:  string;
+    courierName!: string;
     images!: string;
     image1!: string;
     image2!: string;
