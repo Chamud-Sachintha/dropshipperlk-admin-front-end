@@ -12,4 +12,5 @@ export class Product {
     isResell!: boolean;
     createTime!: string;
     productId!: string;
+    status!: string;
 }

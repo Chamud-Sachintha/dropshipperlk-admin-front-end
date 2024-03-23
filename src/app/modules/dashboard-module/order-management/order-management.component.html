@@ -1,23 +1,4 @@
-<div class="row">
-    <!-- <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-        <p style="font-size: 20px; color: white">Loading...</p>
-    </ngx-spinner> -->
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="page-header">
-            <h2 class="pageheader-title">Hello, Welcome Back Chamud Sachintha </h2>
-            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis
-                faucibus at enim quis massa lobortis rutrum.</p>
-            <div class="page-breadcrumb">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
+<app-header-banner [headerText]="'Order Management'"  ></app-header-banner>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -44,10 +25,10 @@
                 <div class="col-6 mt-3">
                     <div class="row">
                         <div class="col-4">
-                            <h5 class="card-header">Search Orders: </h5>
+                            <h5 class="card-header">Searche Orders: </h5>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control mt-1" [(ngModel)]="searchText">
+                            <input type="text" class="form-control mt-1" [(ngModel)]="searchText" (input)="filterOrderRequestList()">
                         </div>
                         <!-- <div class="col-2">
                             <button class="btn btn-primaru btn-sm">Search</button>
@@ -66,6 +47,7 @@
                                     <th>Order No</th>
                                     <!-- <th>Product Name</th> -->
                                     <th>Reseller Name</th>
+                                    <th>Reseller Referral </th>
                                     <!-- <th>Customer Name</th> -->
                                     <!-- <th>Quantity</th> -->
                                     <th>Payment Status</th>
@@ -77,11 +59,12 @@
                                 </tr>
                             </thead>
                            <tbody>
-                            <tr *ngFor="let eachOrder of this.orderRequestList | filter: searchText ; index as i">
+                            <tr *ngFor="let eachOrder of filteredOrderRequestList; index as i">
                                 <td>{{ i + 1 }}</td>
                                 <td>{{ eachOrder.order }}</td>
                                 <!-- <td>{{ eachOrder.productName }}</td> -->
                                 <td>{{ eachOrder.resellerName }}</td>
+                                <td>{{ eachOrder.resellerReferral }}</td>
                                 <!-- <td>{{ eachOrder.customerName }}</td> -->
                                 <!-- <td>{{ eachOrder.quantity }}</td> -->
                                 <td>{{ eachOrder.paymentStatus }}</td>
@@ -114,6 +97,7 @@
                                     <th>Order No</th>
                                     <!-- <th>Product Name</th> -->
                                     <th>Reseller Name</th>
+                                    <th>Reseller Referral </th>
                                     <!-- <th>Customer Name</th>
                                     <th>Quantity</th> -->
                                     <th>Payment Status</th>

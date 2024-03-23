@@ -3,6 +3,7 @@ export class OrderRequest {
     order!: string;
     productName!: string;
     resellerName!: string;
+    resellerReferral!: string;
     customerName!: string;
     quantity!: string;
     paymentStatus!: string;

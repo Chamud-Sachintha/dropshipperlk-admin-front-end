@@ -7,6 +7,8 @@ import { OrderRequest } from 'src/app/shared/models/OrderRequest/order-request';
 import { Request } from 'src/app/shared/models/Request/request';
 import { OrderService } from 'src/app/shared/services/order/order.service';
 import { PrintService } from 'src/app/shared/services/print/print.service';
+import { Pipe, PipeTransform } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 interface CustomerDetails {
   order: string;
@@ -34,9 +36,12 @@ export class OrderManagementComponent implements OnInit {
   searchText = '';
   CustomerForm! : FormGroup;
   OrderCusDetails: CustomerDetails | null = null;
+  filteredOrderRequestList: OrderRequest[] = [];
   
 
   constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) {}
+
+ 
 
   ngOnInit(): void {
     this.loadOrderRequestList();
@@ -47,16 +52,40 @@ export class OrderManagementComponent implements OnInit {
       contact_2: ['', Validators.required],
       address: ['', Validators.required],
     });
+    this.filteredOrderRequestList = this.orderRequestList; 
+  }
+
+  filterOrderRequestList() {
+    if (!this.searchText) {
+      this.filteredOrderRequestList = this.orderRequestList; // Reset to the original data if search text is empty
+    } else {
+      const searchTextLower = this.searchText.toLowerCase();
+      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+        Object.values(order).some(value =>
+          value ? value.toString().toLowerCase().includes(searchTextLower) : false
+        )
+      );
+    }
   }
 
   onClickPrintWayBillPdf() {
     this.requestParamModel.orderNumbers = this.selectedOrderNumbers;
     this.requestParamModel.token = sessionStorage.getItem("authToken");
-    
-    this.printService.viewPdf(this.requestParamModel).subscribe((resp: any) => {
-
-      
-    })
+  
+    this.printService.viewPdf(this.requestParamModel).subscribe(
+      (response: HttpResponse<Blob>) => {
+        if (response.body) {
+          const blob = new Blob([response.body], { type: 'application/pdf' });
+          const url = window.URL.createObjectURL(blob);
+          window.open(url);
+        } else {
+          console.error('Response body is null');
+        }
+      },
+      (error) => {
+        console.error('Error fetching PDF:', error);
+      }
+    );
   }
 
   removeOrderNumber(orderNumber: string) {

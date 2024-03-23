@@ -17,6 +17,7 @@ import { SiteSettingsComponent } from './site-settings/site-settings.component';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { HeaderBannerComponent } from './header-banner/header-banner.component';
 
 
 
@@ -32,7 +33,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     PayoutLogComponent,
     CheckPayoutComponent,
     SiteSettingsComponent,
-    FilterPipe
+    FilterPipe,
+    HeaderBannerComponent
   ],
   imports: [
     CommonModule,

@@ -11,11 +11,23 @@ import { CategoryService } from 'src/app/shared/services/Category/category.servi
 import { ProductService } from 'src/app/shared/services/Product/product.service';
 import { environment } from 'src/environments/environment.development';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css']
+  styleUrls: ['./add-product.component.css'],
+  animations: [
+    trigger('flyInOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-100%)' }),
+        animate('500ms', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('500ms', style({ opacity: 0, transform: 'translateY(-100%)' }))
+      ])
+    ])
+  ]
 })
 
 
@@ -48,6 +60,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.initUpdateProductForm();
     this.loadCategoryList();
     this.loadProductList();
+
+    
    
   }
 
@@ -65,6 +79,9 @@ export class AddProductComponent implements OnInit, OnDestroy {
         this.updateProductForm.controls['productName'].setValue(dataList.data[0].productName);
         this.updateProductForm.controls['description'].setValue(dataList.data[0].description);
         this.updateProductForm.controls['price'].setValue(dataList.data[0].price);
+        this.updateProductForm.controls['status'].setValue(dataList.data[0].status);
+
+        //console.log('stusts',dataList.data[0].status);
       }
     })
   }
@@ -73,6 +90,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     const productName = this.updateProductForm.controls['productName'].value;
     const description = this.updateProductForm.controls['description'].value;
     const price = this.updateProductForm.controls['price'].value;
+    const status = this.updateProductForm.controls['status'].value;
 
     if (productName == "") {
       this.tosr.error("Empty Field Found", "Product Name is Required.");
@@ -86,10 +104,13 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.productModel.description = description;
       this.productModel.price = price;
       this.productModel.productId = this.productId;
+      this.productModel.status = status;
 
       this.productService.updateProduct(this.productModel).subscribe((resp: any) => {
         if (resp.code === 1) {
+         // console.log("Successfully Updated Product Info!",resp.code);
           this.tosr.success("Update Product", "Product Updated Successfully.");
+          window.location.reload();
         } else {
           this.tosr.error("Update Product", resp.message);
         }
@@ -101,7 +122,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.updateProductForm = this.formBuilder.group({
       productName: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['', Validators.required]
+      price: ['', Validators.required],
+      status: ['']
     })
   }
   

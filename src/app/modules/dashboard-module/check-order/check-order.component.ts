@@ -28,7 +28,7 @@ export class CheckOrderComponent implements OnInit {
   ngOnInit(): void {
 
     this.orderId = this.activatedRoute.snapshot.params['orderId'];
-
+console.log('orddrid',this.orderId);
     this.loadOrderInfo();
   }
 

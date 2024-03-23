@@ -11,8 +11,11 @@ export class PrintService {
   constructor(private http: HttpClient) { }
 
   viewPdf(requestParamModel: Request) {
-    const path = environment.apiURL + "view-pdf";
-    return this.http.post(path, requestParamModel);
+    const url =  environment.apiURL +'view-pdf';
+    const headers = { 'Content-Type': 'application/json' };
+
+    return this.http.post(url, requestParamModel, { headers, responseType: 'blob', observe: 'response' });
+  
   }
 
   DownOrderRepport(requestParamModel: Request) {

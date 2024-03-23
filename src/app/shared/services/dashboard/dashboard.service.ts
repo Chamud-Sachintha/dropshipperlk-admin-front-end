@@ -14,4 +14,9 @@ export class DashboardService {
     const path = environment.apiURL +  "dashboard-data";
     return this.http.post(path, requestModel);
   }
+
+  getUserData(requestModel: Request) {
+    const path = environment.apiURL +  "User-data";
+    return this.http.post(path, requestModel);
+  }
 }
