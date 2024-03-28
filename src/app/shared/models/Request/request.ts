@@ -11,5 +11,6 @@ export class Request {
     orderNumbers: any[] = [];
     productId!: string;
     courierName!: string;
-  selectedReportType: any;
+    selectedReportType: any;
+    CategoryId! : any;
 }

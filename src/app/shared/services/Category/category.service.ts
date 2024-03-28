@@ -16,6 +16,16 @@ export class CategoryService {
     return this.http.post(path, categoryInfo);
   }
 
+  EditCategory(searchParam: SearchParam) {
+    const path = environment.apiURL + "find-category";
+    return this.http.post(path, searchParam);
+  }
+
+  updateCategory(categoryInfo: Category) {
+    const path = environment.apiURL + "update-category";
+    return this.http.post(path, categoryInfo);
+  }
+
   getCategoryList(searchParam: SearchParam) {
     const path = environment.apiURL + "get-category-list";
     return this.http.post(path, searchParam);

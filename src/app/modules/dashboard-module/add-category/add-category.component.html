@@ -67,7 +67,7 @@
                                 <td>{{ eachCategory.description }}</td>
                                 <td>{{ eachCategory.createTime | date }}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm">Update</button>
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" (click)="onClickGetPCateInfo(eachCategory.id)">Update</button>
                                 </td>
                             </tr>
                            </tbody>
@@ -87,4 +87,57 @@
             </div>
         </div>
     </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
+            <form [formGroup]="updateCategoryForm" (ngSubmit)="onSubmitUpdateCategoryForm();">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="">Category Name</label>
+                        <input type="hidden" class="form-control" formControlName="category_id">
+                        <input type="text" class="form-control" formControlName="category_name">
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label for="">Description</label>
+                        <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+                      
+                    </div>
+                   
+                    <div class="col-12 mt-3">
+                            <label>Status</label> <br>
+                            <select id="status" class="form-control" formControlName="status">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                              </select>
+                            
+                    </div>
+                    <div class="col-12 mt-3">
+                        <button class="btn btn-primary btn-sm" type="submit">Update</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
