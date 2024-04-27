@@ -23,4 +23,6 @@ export class OrderRequest {
     image3!: string;
     image4!: string;
     orderPlaceDate!: Date;
+    bank_slip!: any;
+    OrderDate!:any;
 }

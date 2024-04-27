@@ -45,6 +45,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
   productModel = new Product;
   productId!: string;
   descriptionEditor: any
+  searchText = '';
+  filteredProductList: Product[] = [];
 
   constructor(private formBuilder: FormBuilder, private router: Router, private productService: ProductService
             , private categoryService: CategoryService
@@ -60,7 +62,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.initUpdateProductForm();
     this.loadCategoryList();
     this.loadProductList();
-
+    this.filteredProductList = this.productInfoList;
     
    
   }
@@ -237,6 +239,7 @@ console.log("dataList", dataList);
 
         if (resp.code === 1) {
           this.tosr.success("Add New Product", "Product Added Successully");
+          window.location.reload();
         } else {
           this.tosr.error("Add New Prodyct", resp.message)
         }
@@ -246,6 +249,10 @@ console.log("dataList", dataList);
 
   onChangeImageFileUpload($event: any) {
     this.selectedImageFile = Array.from($event.target.files);
+
+    this.selectedImageFile.forEach((eachImage: File, index) => {
+      console.log("image" + index, eachImage);
+    })
 
   }
 
@@ -303,4 +310,41 @@ console.log("dataList", dataList);
       },
     ]
 };
+
+filterOrderRequestList() {
+  if (!this.searchText) {
+    this.filteredProductList = this.productInfoList; // Reset to the original data if search text is empty
+  } else {
+    const searchTextLower = this.searchText.toLowerCase();
+    this.filteredProductList = this.productInfoList.filter(order =>
+      Object.values(order).some(value =>
+        value ? value.toString().toLowerCase().includes(searchTextLower) : false
+      )
+    );
+  }
+}
+
+onClickGetProductDelete(productId: string){
+  this.requestParamModel.productId = productId;
+  this.requestParamModel.token = sessionStorage.getItem("authToken");
+
+  this.productId = productId
+
+  this.productService.getProductDeleteById(this.requestParamModel).subscribe((resp: any) => {
+
+    const dataList = JSON.parse(JSON.stringify(resp));
+
+    if (resp.code === 1) {
+      this.initCreateProductForm();
+    this.initUpdateProductForm();
+    this.loadCategoryList();
+    this.loadProductList();
+    this.filteredProductList = this.productInfoList;
+      this.tosr.success("Deleted Product", "Product Delete Successully");
+    } else {
+      this.tosr.error("Delete Prodyct", resp.message)
+    }
+  })
+}
+
 }

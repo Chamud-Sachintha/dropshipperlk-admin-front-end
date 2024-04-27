@@ -18,6 +18,7 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HeaderBannerComponent } from './header-banner/header-banner.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 
 
@@ -34,7 +35,8 @@ import { HeaderBannerComponent } from './header-banner/header-banner.component';
     CheckPayoutComponent,
     SiteSettingsComponent,
     FilterPipe,
-    HeaderBannerComponent
+    HeaderBannerComponent,
+    AdminUsersComponent
   ],
   imports: [
     CommonModule,

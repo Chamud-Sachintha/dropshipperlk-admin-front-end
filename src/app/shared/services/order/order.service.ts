@@ -49,4 +49,9 @@ export class OrderService {
     const path = environment.apiURL + "Update-order-info-by-Cus";
     return this.http.post(path, reqwustOrderCusDetails);
   }
+
+  returnStatusUpdate(requestParamModel: Request){
+    const path = environment.apiURL + "update-return-status";
+    return this.http.post(path, requestParamModel);
+  }
 }

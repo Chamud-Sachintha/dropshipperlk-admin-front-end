@@ -12,6 +12,7 @@ import { PayoutLogComponent } from './payout-log/payout-log.component';
 import { CheckPayoutComponent } from './check-payout/check-payout.component';
 import { SiteSettingsComponent } from './site-settings/site-settings.component';
 import { ReportsComponent } from './reports/reports.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuardGuard]
+  },
+  {
+    path: 'adminusers',
+    component: AdminUsersComponent,
     canActivate: [AuthGuardGuard]
   },
   {

@@ -35,22 +35,22 @@
                             <input type="text" class="form-control" formControlName="teamCommision">
                         </div>
                         <div class="col-6">
-                            <label for="">Direct Commision</label>
+                            <label for="">Direct Commission</label>
                             <input type="text" class="form-control" formControlName="directCommision">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
-                            <label for="">Waranty</label>
+                            <label for="">Warranty</label>
                             <!-- <input type="text" class="form-control" formControlName="warranty"> -->
                             <select name="" class="form-control" id="" formControlName="warranty">
-                                <option value="7 Days Waranty">7 Days Waranty</option>
-                                <option value="14 Days Waranty">14 Days Waranty</option>
-                                <option value="One Month Waranty">One Month Waranty</option>
-                                <option value="Three Month Waranty">Three Month Waranty</option>
-                                <option value="Six Month Waranty">Six Month Waranty</option>
-                                <option value="One Year Waranty">One Year Waranty</option>
-                                <option value="No Waranty No Exchange">No Waranty</option>
+                                <option value="7 Days Warranty">7 Days Warranty</option>
+                                <option value="14 Days Warranty">14 Days Warranty</option>
+                                <option value="One Month Warranty">One Month Warranty</option>
+                                <option value="Three Month Warranty">Three Month Warranty</option>
+                                <option value="Six Month Warranty">Six Month Warranty</option>
+                                <option value="One Year Warranty">One Year Warranty</option>
+                                <option value="No Warranty No Exchange">No Warranty</option>
                             </select>
                         </div>
                         <div class="col-6">
@@ -68,8 +68,10 @@
                         </div>
                         <div class="col-6">
                             <label for="">Images</label>
-                            <input type="file" class="form-control" multiple (change)="onChangeImageFileUpload($event)">
+                            <input id="fileInput" type="file" class="form-control" multiple (change)="onChangeImageFileUpload($event)">
+
                         </div>
+                       
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
@@ -94,8 +96,23 @@
     <div class="col-12">
         <div class="card">
             <h5 class="card-header">Product Informations</h5>
-
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="card-header">Searche Orders: </h5>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control mt-1" [(ngModel)]="searchText" (input)="filterOrderRequestList()">
+                        </div>
+                        <!-- <div class="col-2">
+                            <button class="btn btn-primaru btn-sm">Search</button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
             <div class="card-body">
+                
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="table-responsive">
@@ -114,7 +131,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let eachData of this.productInfoList; index as i">
+                                    <tr *ngFor="let eachData of this.filteredProductList; index as i">
                                         <td>{{ i + 1 }}</td>
                                         <td>{{ eachData.productName }}</td>
                                         <td>
@@ -129,6 +146,9 @@
                                             <div class="col-12  mt-1">
                                             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" (click)="onClickGetProductInfo(eachData.id)">Update</button>
                                             </div>
+                                            <div class="col-12  mt-1">
+                                                <button class="btn btn-danger btn-sm" data-toggle="modal"  (click)="onClickGetProductDelete(eachData.id)">Remove</button>
+                                                </div>
                                             
                                         </td>
                                     </tr>
@@ -207,3 +227,4 @@
     </div>
   </div>
 </div>
+

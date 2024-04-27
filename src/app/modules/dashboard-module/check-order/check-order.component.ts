@@ -21,6 +21,7 @@ export class CheckOrderComponent implements OnInit {
   orderRequestList: OrderRequest[] = [];
   orderId!: string;
   isShowTrackingNumber = false;
+  isShowReturn = false;
 
   constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute
               , private tostr: ToastrService, private spinner: NgxSpinnerService) {}
@@ -117,7 +118,10 @@ console.log('orddrid',this.orderId);
   onChangeStatus(orderStatus: string) {
     if (orderStatus == "4") {
       this.isShowTrackingNumber = true;
-    } else {
+    } else if(orderStatus == "6"){
+      this.isShowReturn = true;
+    }
+     else {
       this.isShowTrackingNumber = false;
     }
   }
@@ -131,11 +135,29 @@ console.log('orddrid',this.orderId);
       const dataList = JSON.parse(JSON.stringify(resp))
 
       if (resp.code === 1) {
+        const innerObject = dataList.data[0]; 
+        if (innerObject && typeof innerObject === 'object') {
+            
+            for (const key in innerObject) {
+                if (!isNaN(parseInt(key)) && innerObject.hasOwnProperty(key)) {
+                   
+                    const jsonData = innerObject[key];
+                    this.orderRequestList.push(jsonData);
+                }
+            }
 
-        dataList.data.forEach((eachData: OrderRequest, index: any) => {
+           
+        } else {
+            console.log('innerObject is not an object or is undefined/null.');
+        }
+
+
+
+      /*  dataList.data.forEach((eachData: OrderRequest, index: any) => {
           const dataObj: any = eachData;
-          this.orderRequestList.push(dataObj[index]);
-        })
+          this.orderRequestList.push(dataObj);
+          console.log('index>>>',eachData);
+        })*/
         // this.orderInfoModel.productName = dataList.data[0].productName;
         this.orderInfoModel.totalAmount = dataList.data[0].totalAmount;
         // this.orderInfoModel.quantity = dataList.data[0].quantity;
@@ -153,6 +175,28 @@ console.log('orddrid',this.orderId);
         // this.orderInfoModel.image4 = environment.devServer + "images/" + dataList.data[0].images.image3;
       }
     })
+  }
+
+  onClickSetReturnStatus(Rstatus: string){
+   
+
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+    this.requestParamModel.orderId = this.orderId;
+    this.requestParamModel.returnstatus = Rstatus;
+
+    this.spinner.show();
+    this.orderService.returnStatusUpdate(this.requestParamModel).subscribe((resp: any) => {
+
+      if (resp.code === 1) {
+        this.tostr.success("Return Update", "Successfully");
+        location.reload();
+      } else {
+        this.tostr.error("Update Faild", resp.message);
+      }
+
+      this.spinner.hide();
+    })
+
   }
 
 }

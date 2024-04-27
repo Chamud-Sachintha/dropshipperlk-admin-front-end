@@ -40,7 +40,7 @@
                                                     <td>{{ eachData.resellPrice }}</td>
                                                     <td>{{ eachData.quantity }}</td>
                                                     <td>{{ eachData.totalAmount }}</td>
-                                                    <td></td>
+                                                    <td>{{ eachData.OrderDate }}</td>
                                                     <td>
                                                         <button class="btn btn-primary btn-sm">Check</button>
                                                     </td>
@@ -74,20 +74,20 @@
                 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                         <label for="">Payment Status</label>
                                         <p>{{ this.orderInfoModel.paymentStatus }}</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                         <label for="">Total Amount</label>
                                         <p>LKR. {{ this.orderInfoModel.totalAmount }} .00</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                         
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-5">
+                                    <div class="col-md-5">
                                         <div class="row">
                                             <div class="col-6">
                                                 <label for="">Payment Status</label>
@@ -106,7 +106,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-md-5">
                                         <div class="row">
                                             <div class="col-6">
                                                 <label for="">Order Status</label>
@@ -132,17 +132,31 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row mt-2" *ngIf="this.isShowTrackingNumber">
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         <label for="">Tracking Number</label>
                                         <input type="text" class="form-control" #trackingNumber>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         <label for="">Courier Nmae</label>
                                         <input type="text" class="form-control" #courierName>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         <button class="btn btn-primary mt-4" (click)="onClickSetTrackingNumber(trackingNumber.value, courierName.value)">Update Tracking Number</button>
+                                    </div>
+                                </div>
+                                <div class="row mt-2" *ngIf="this.isShowReturn">
+                                    <div class="col-md-2">
+                                        <label for="">Return Package Status</label>
+                                        <select name="" id="" class="form-control" #returnStatus>
+                                            <option value="">-- Select Option --</option>
+                                            <option value="1">Received</option>
+                                            <option value="2">Not Received</option>
+                                        </select>
+                                    </div>                                    
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary mt-4" (click)="onClickSetReturnStatus(returnStatus.value)">Update Return Status</button>
                                     </div>
                                 </div>
                                 <div *ngIf="this.orderInfoModel.orderCancled == '1'">
@@ -160,18 +174,18 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-md-6">
                                                     <select name="" id="" class="form-control" #refundStatus>
                                                         <option value="">-- Select Option --</option>
                                                         <option value="1">Refunded</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-md-6">
                                                     <button class="btn btn-primary btn-sm" (click)="onClickRefundApprove(refundStatus.value)">Update Status</button>
                                                 </div>
                                             </div>
                                             <div class="row mt-3" *ngIf="this.orderInfoModel.refundNotice == '1'">
-                                                <div class="col-12">
+                                                <div class="col-md-12">
                                                     <div class="alert alert-warning" role="alert">
                                                         Seller is Cancled this Order
                                                         <hr>

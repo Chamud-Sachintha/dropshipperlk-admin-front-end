@@ -13,4 +13,5 @@ export class Request {
     courierName!: string;
     selectedReportType: any;
     CategoryId! : any;
+    returnstatus!: any;
 }

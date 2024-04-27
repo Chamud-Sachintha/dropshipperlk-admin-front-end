@@ -30,4 +30,9 @@ export class ProductService {
     const path = environment.apiURL + "get-product-info-by-id";
     return this.http.post(path, requestParamModel);
   }
+
+  getProductDeleteById(requestParamModel: Request) {
+    const path = environment.apiURL + "get-product-delete-by-id";
+    return this.http.post(path, requestParamModel);
+  }
 }
