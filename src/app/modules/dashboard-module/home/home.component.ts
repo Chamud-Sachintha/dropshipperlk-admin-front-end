@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardModel } from 'src/app/shared/models/DashboardModel/dashboard-model';
 import { Request } from 'src/app/shared/models/Request/request';
 import { DashboardService } from 'src/app/shared/services/dashboard/dashboard.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +13,12 @@ export class HomeComponent implements OnInit {
 
   requestPaaramModell = new Request();
   dashboardModel = new DashboardModel();
+  isShowUpdatePopup!: any;
 
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
+    this.isShowUpdatePopup = environment.isShowPopup;
     this.loadDashboardData();
   }
 
