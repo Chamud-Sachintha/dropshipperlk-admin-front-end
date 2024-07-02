@@ -54,4 +54,8 @@ export class OrderService {
     const path = environment.apiURL + "update-return-status";
     return this.http.post(path, requestParamModel);
   }
+
+  bulkOrderUpdate() {
+    const path = environment.apiURL + "bulk-order-update";
+  }
 }

@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 
 interface CustomerDetails {
   order: string;
-  name: string ;
+  name: string;
   contact_1: string;
   contact_2: string;
   address: string;
@@ -36,25 +36,25 @@ export class OrderManagementComponent implements OnInit {
   selectedOrderNumbers: any[] = [];
   searchText = '';
   selectedFilter = '';
-  CustomerForm! : FormGroup;
+  CustomerForm!: FormGroup;
   OrderCusDetails: CustomerDetails | null = null;
   filteredOrderRequestList: OrderRequest[] = [];
-  
 
-  constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) {}
 
- 
+  constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) { }
+
+
 
   ngOnInit(): void {
     this.loadOrderRequestList();
     this.CustomerForm = this.fb.group({
-      order:['', Validators.required],
+      order: ['', Validators.required],
       name: ['', Validators.required],
       contact_1: ['', Validators.required],
       contact_2: ['', Validators.required],
       address: ['', Validators.required],
     });
-    this.filteredOrderRequestList = this.orderRequestList; 
+    this.filteredOrderRequestList = this.orderRequestList;
   }
 
   // filterOrderRequestList() {
@@ -70,68 +70,72 @@ export class OrderManagementComponent implements OnInit {
   //   }
   // }
 
- 
-filterOrderRequestList() {
-  const searchTextLower = this.searchText.toLowerCase();
-  switch (this.selectedFilter) {
-    case 'orderNo':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.order.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
-    case 'resellerName':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.resellerName.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
-    case 'resellerReferral':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.resellerReferral.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
-    case 'paymentStatus':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.paymentStatus.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
-    case 'orderStatus':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.orderStatus.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
-    case 'trackingNumber':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.trackingNumber.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
-    case 'courierName':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.courierName.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
-    case 'totalAmount':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.totalAmount.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
-    case 'orderDate':
-      this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-        order.orderPlaceDate.toString().toLowerCase().includes(searchTextLower)
-      );
-      break;
+  onClickChangeBulkStatus() {
+    
+  }
+
+
+  filterOrderRequestList() {
+    const searchTextLower = this.searchText.toLowerCase();
+    switch (this.selectedFilter) {
+      case 'orderNo':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.order.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'resellerName':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.resellerName.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'resellerReferral':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.resellerReferral.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'paymentStatus':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.paymentStatus.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'orderStatus':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.orderStatus.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'trackingNumber':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.trackingNumber.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'courierName':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.courierName.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'totalAmount':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.totalAmount.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'orderDate':
+        this.filteredOrderRequestList = this.orderRequestList.filter(order =>
+          order.orderPlaceDate.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
       case '':
         this.filteredOrderRequestList = this.orderRequestList;
-      
-      break;
-    default:
-      this.filteredOrderRequestList = this.orderRequestList;
+
+        break;
+      default:
+        this.filteredOrderRequestList = this.orderRequestList;
+    }
   }
-}
 
   onClickPrintWayBillPdf() {
     this.requestParamModel.orderNumbers = this.selectedOrderNumbers;
     this.requestParamModel.token = sessionStorage.getItem("authToken");
-  
+
     this.printService.viewPdf(this.requestParamModel).subscribe(
       (response: HttpResponse<Blob>) => {
         if (response.body) {
@@ -178,7 +182,7 @@ filterOrderRequestList() {
     this.selectedOrdersToPrint -= 1;
     this.removeOrderNumber(orderNumber);
   }
-  
+
   onClickViewOrder(orderId: string) {
     this.route.navigate(['app/check-order', orderId]);
   }
@@ -202,16 +206,16 @@ filterOrderRequestList() {
   onClickLoadModel(orderId: string) {
     this.requestParamModel.token = sessionStorage.getItem("authToken");
     this.requestParamModel.Oid = orderId;
-  
+
     this.orderService.getOrderCustomerData(this.requestParamModel).subscribe((resp: any) => {
       const dataList = JSON.parse(JSON.stringify(resp));
-  
+
       if (resp.code === 1 && resp.data && resp.data.length > 0) {
         this.OrderCusDetails = resp.data[0]!;
         console.log("asd", this.OrderCusDetails);
-  
+
         if (this.OrderCusDetails) {
-         
+
           this.CustomerForm.patchValue({
             order: this.OrderCusDetails.order || '',
             name: this.OrderCusDetails.name || '',
@@ -224,7 +228,7 @@ filterOrderRequestList() {
     });
   }
 
-  onclickviewbankslip(bank_slip : any){
+  onclickviewbankslip(bank_slip: any) {
 
     if (bank_slip == "") {
       //window.open(environment.fileServerBack + "kyc/" + this.frontNICImage)
@@ -233,9 +237,9 @@ filterOrderRequestList() {
     }
 
   }
-  
 
-  onSubmitAddQuantityForm(){
+
+  onSubmitAddQuantityForm() {
     this.reqwustOrderCusDetails.token = sessionStorage.getItem("authToken");
     this.reqwustOrderCusDetails.order = this.CustomerForm.value.order;
     this.reqwustOrderCusDetails.contact_1 = this.CustomerForm.value.contact_1;
@@ -251,6 +255,6 @@ filterOrderRequestList() {
         window.location.reload();
       }
     })
-      console.log('Form submitted:', this.reqwustOrderCusDetails);
+    console.log('Form submitted:', this.reqwustOrderCusDetails);
   }
 }
