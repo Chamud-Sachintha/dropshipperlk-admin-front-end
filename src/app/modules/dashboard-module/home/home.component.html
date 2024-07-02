@@ -1,5 +1,9 @@
 <div class="container">
     <div class="row">
+        <div class="col-12" *ngIf="this.isShowUpdatePopup">
+            <div class="alert alert-danger" role="alert">
+                To ensure optimal performance, it is necessary to clean the server cache. Please contact support for assistance.            </div>
+        </div>
         <div class="col-lg-4">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
