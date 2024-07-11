@@ -37,13 +37,11 @@ export class OrderManagementComponent implements OnInit {
   searchText = '';
   selectedFilter = '';
   CustomerForm!: FormGroup;
+  bulkOrderChangeStatusForm!: FormGroup;
   OrderCusDetails: CustomerDetails | null = null;
   filteredOrderRequestList: OrderRequest[] = [];
-
-
+  
   constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) { }
-
-
 
   ngOnInit(): void {
     this.loadOrderRequestList();
@@ -54,24 +52,35 @@ export class OrderManagementComponent implements OnInit {
       contact_2: ['', Validators.required],
       address: ['', Validators.required],
     });
+    this.initbulkOrderChangeStatusForm();
     this.filteredOrderRequestList = this.orderRequestList;
   }
 
-  // filterOrderRequestList() {
-  //   if (!this.searchText) {
-  //     this.filteredOrderRequestList = this.orderRequestList; 
-  //   } else {
-  //     const searchTextLower = this.searchText.toLowerCase();
-  //     this.filteredOrderRequestList = this.orderRequestList.filter(order =>
-  //       Object.values(order).some(value =>
-  //         value ? value.toString().toLowerCase().includes(searchTextLower) : false
-  //       )
-  //     );
-  //   }
-  // }
+  initbulkOrderChangeStatusForm() {
+    this.bulkOrderChangeStatusForm = this.fb.group({
+      orderStatus: ['', Validators.required],
+    })
+  }
 
-  onClickChangeBulkStatus() {
-    
+  onSubmitBulkOrderChangeStatus() {
+    const orderStatus = this.bulkOrderChangeStatusForm.controls['orderStatus'].value;
+
+    if (orderStatus == "") {
+      this.toastr.error("Bulk Order Updation", "Order Status is Required.");
+    } else {
+      this.requestParamModel.orderNumbers = this.selectedOrderNumbers;
+      this.requestParamModel.orderStatus = orderStatus;
+      this.requestParamModel.token = sessionStorage.getItem("authToken");
+
+      this.orderService.bulkOrderUpdate(this.requestParamModel).subscribe((resp: any) => {
+        if (resp.code === 1) {
+          if (orderStatus == 4) {
+            location.reload();
+            this.route.navigate(['/app/courier-info'])
+          }
+        }
+      })
+    }
   }
 
 

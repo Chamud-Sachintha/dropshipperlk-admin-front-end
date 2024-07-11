@@ -13,6 +13,7 @@ import { CheckPayoutComponent } from './check-payout/check-payout.component';
 import { SiteSettingsComponent } from './site-settings/site-settings.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { CourierInfoComponent } from './courier-info/courier-info.component';
 
 const routes: Routes = [
   {
@@ -76,6 +77,10 @@ const routes: Routes = [
   {
     path: 'DownloadReport',
     component: ReportsComponent
+  },
+  {
+    path: 'courier-info',
+    component: CourierInfoComponent
   }
 ];
 

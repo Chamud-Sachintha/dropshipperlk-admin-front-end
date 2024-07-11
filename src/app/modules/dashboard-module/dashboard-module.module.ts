@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HeaderBannerComponent } from './header-banner/header-banner.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
-
+import { CourierInfoComponent } from './courier-info/courier-info.component';
 
 
 @NgModule({
@@ -36,7 +36,8 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
     SiteSettingsComponent,
     FilterPipe,
     HeaderBannerComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    CourierInfoComponent
   ],
   imports: [
     CommonModule,
@@ -45,8 +46,7 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
     ReactiveFormsModule,
     NgxSpinnerModule,
     HttpClientModule, 
-    AngularEditorModule
-    
+    AngularEditorModule,
   ]
 })
 export class DashboardModuleModule { }
