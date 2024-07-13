@@ -23,7 +23,7 @@
                                 </tr>
                             </thead>
                            <tbody>
-                            <tr *ngFor="let eachSeller of this.sellerList; index as i">
+                            <tr *ngFor="let eachSeller of this.sellerList | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; index as i">
                                 <td>{{ i + 1 }}</td>
                                 <td>{{ eachSeller.resellerName }}</td>
                                 <td>{{ eachSeller.resellerReferral }}</td>
@@ -45,6 +45,7 @@
                                 </tr>
                             </tfoot>
                         </table>
+                        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
                     </div>
                 </div>
             </div>

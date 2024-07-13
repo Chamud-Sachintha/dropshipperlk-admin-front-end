@@ -43,6 +43,11 @@ export class OrderManagementComponent implements OnInit {
   filteredOrderRequestList: OrderRequest[] = [];
   
   constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) { }
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalItems = 100;
+
+ 
 
   ngOnInit(): void {
     this.loadOrderRequestList();
@@ -141,6 +146,11 @@ export class OrderManagementComponent implements OnInit {
         this.filteredOrderRequestList = this.orderRequestList;
     }
   }
+
+pageChanged(event: any): void {
+  this.currentPage = event;
+  this.loadOrderRequestList();
+}
 
   onClickPrintWayBillPdf() {
     this.requestParamModel.orderNumbers = this.selectedOrderNumbers;

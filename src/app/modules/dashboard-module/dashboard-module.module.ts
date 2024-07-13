@@ -20,6 +20,11 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HeaderBannerComponent } from './header-banner/header-banner.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { CourierInfoComponent } from './courier-info/courier-info.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+
+
 
 
 @NgModule({
@@ -47,6 +52,10 @@ import { CourierInfoComponent } from './courier-info/courier-info.component';
     NgxSpinnerModule,
     HttpClientModule, 
     AngularEditorModule,
+    NgxPaginationModule,
+    PaginationModule.forRoot(),
+    
+    
   ]
 })
 export class DashboardModuleModule { }

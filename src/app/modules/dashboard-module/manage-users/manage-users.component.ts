@@ -22,6 +22,10 @@ export class ManageUsersComponent implements OnInit {
   filteredResell: Reseller[] = [];
   searchText ='';
 
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalItems = 100;
+
   
   constructor(private formBuilder: FormBuilder, private router: Router, private ResellerService: UserManagementService
     , private tosr: ToastrService
@@ -30,6 +34,11 @@ export class ManageUsersComponent implements OnInit {
   ngOnInit(): void {
     this.loadAllresellers();
     this.filteredResell = this.ResellerList;
+  }
+
+  pageChanged(event: any): void {
+    this.currentPage = event;
+    this.loadAllresellers();
   }
 
   loadAllresellers(){

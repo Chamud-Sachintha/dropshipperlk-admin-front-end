@@ -48,6 +48,10 @@ export class AddProductComponent implements OnInit, OnDestroy {
   searchText = '';
   filteredProductList: Product[] = [];
 
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalItems = 100;
+
   constructor(private formBuilder: FormBuilder, private router: Router, private productService: ProductService
             , private categoryService: CategoryService
             , private tosr: ToastrService
@@ -65,6 +69,11 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.filteredProductList = this.productInfoList;
     
    
+  }
+
+  pageChanged(event: any): void {
+    this.currentPage = event;
+    this.loadProductList();
   }
 
   onClickGetProductInfo(productId: string) {
