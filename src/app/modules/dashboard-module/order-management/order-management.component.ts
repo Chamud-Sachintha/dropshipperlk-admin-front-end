@@ -40,6 +40,10 @@ export class OrderManagementComponent implements OnInit {
   OrderCusDetails: CustomerDetails | null = null;
   filteredOrderRequestList: OrderRequest[] = [];
   
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalItems = 100;
+
 
   constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) {}
 
@@ -126,6 +130,11 @@ filterOrderRequestList() {
     default:
       this.filteredOrderRequestList = this.orderRequestList;
   }
+}
+
+pageChanged(event: any): void {
+  this.currentPage = event;
+  this.loadOrderRequestList();
 }
 
   onClickPrintWayBillPdf() {

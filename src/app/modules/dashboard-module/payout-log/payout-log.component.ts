@@ -13,10 +13,18 @@ export class PayoutLogComponent implements OnInit {
 
   requestParamModel = new Request();
   sellerList: PayOut[] = [];
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalItems = 100;
 
   constructor(private router: Router, private payOutService: PayOutService) {}
 
   ngOnInit(): void {
+    this.loadSellerList();
+  }
+
+  pageChanged(event: any): void {
+    this.currentPage = event;
     this.loadSellerList();
   }
 

@@ -34,7 +34,7 @@
                                             </tr>
                                         </thead>
                                        <tbody>
-                                        <tr *ngFor="let eachOrder of filteredResell; index as i">
+                                        <tr *ngFor="let eachOrder of filteredResell | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; index as i">
                                             <td>{{i + 1}}</td>
                                             <td>{{eachOrder.full_name}}</td>
                                             <td>{{eachOrder.phone_number}}</td>
@@ -60,6 +60,7 @@
                                             </tr>
                                         </tfoot>
                                     </table>
+                                    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
                                 </div>
                             </div>
                         </div>
