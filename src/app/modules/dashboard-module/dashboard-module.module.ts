@@ -19,6 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HeaderBannerComponent } from './header-banner/header-banner.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+
 
 
 
@@ -45,7 +49,10 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
     ReactiveFormsModule,
     NgxSpinnerModule,
     HttpClientModule, 
-    AngularEditorModule
+    AngularEditorModule,
+    NgxPaginationModule,
+    PaginationModule.forRoot(),
+    
     
   ]
 })

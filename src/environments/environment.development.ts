@@ -7,4 +7,4 @@ export const environment = {
     // fileServer: 'https://adminapi.dropshipper.lk/kyc/',
     // fileServerBack: 'https://resellerapi.dropshipper.lk/',
     // devServer: 'https://adminapi.dropshipper.lk/'
-};
+ };

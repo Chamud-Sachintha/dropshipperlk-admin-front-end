@@ -12,6 +12,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FilterPipe } from './pipes/filter.pipe';
 import { ReportsComponent } from './modules/dashboard-module/reports/reports.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { ReportsComponent } from './modules/dashboard-module/reports/reports.com
     FormsModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
+    NgxPaginationModule,
+    PaginationModule.forRoot()
+    
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
