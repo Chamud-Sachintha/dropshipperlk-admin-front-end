@@ -14,4 +14,6 @@ export class Request {
     selectedReportType: any;
     CategoryId! : any;
     returnstatus!: any;
+    orderNumber!: any;
+    wayBillNumber!: any;
 }

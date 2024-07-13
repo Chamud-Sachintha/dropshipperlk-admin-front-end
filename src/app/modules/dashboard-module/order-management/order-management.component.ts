@@ -10,6 +10,7 @@ import { PrintService } from 'src/app/shared/services/print/print.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+declare var $: any; 
 
 interface CustomerDetails {
   order: string;
@@ -75,7 +76,7 @@ export class OrderManagementComponent implements OnInit {
       this.orderService.bulkOrderUpdate(this.requestParamModel).subscribe((resp: any) => {
         if (resp.code === 1) {
           if (orderStatus == 4) {
-            location.reload();
+            $("#exampleModalBulkOrder .close").click();
             this.route.navigate(['/app/courier-info'])
           }
         }

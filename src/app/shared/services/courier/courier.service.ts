@@ -11,7 +11,12 @@ export class CourierService {
   constructor(private http: HttpClient) { }
 
   getCourierPackageList(requestParamModel: Request) {
-    const path = environment.apiURL + "";
+    const path = environment.apiURL + "get-courier-package-list";
+    return this.http.post(path, requestParamModel);
+  }
+
+  createCourierPackage(requestParamModel: Request) {
+    const path = environment.apiURL + "create-package";
     return this.http.post(path, requestParamModel);
   }
 }

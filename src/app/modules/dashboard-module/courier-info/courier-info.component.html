@@ -15,36 +15,86 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Category Name</th>
-                                    <th>Status</th>
-                                    <th>Description</th>
+                                    <th>Order Number</th>
+                                    <th>WayBill</th>
+                                    <th>Courier Status</th>
+                                    <th>Package Create Status</th>
                                     <th>Create Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                            <tbody>
-                            <tr>
+                            <tr *ngFor="let eachOrder of this.packageListArray">
                                 <td>1</td>
-                                <td>Sample</td>
-                                <td>Inactive</td>
-                                <td>Sample</td>
-                                <td>Sample</td>
+                                <td>{{ eachOrder.orderNumber }}</td>
+                                <td>{{ eachOrder.wayBillNo }}</td>
+                                <td>{{ eachOrder.packageStatus }}</td>
+                                <td>{{ eachOrder.packageCreateStatus }}</td>
+                                <td>{{ eachOrder.createTime | date }}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Update</button>
+                                    <div class="row">
+                                        <div class="col-12" *ngIf="eachOrder.packageCreateStatus == 'Pending'">
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" (click)="onClickCreatePackage(eachOrder.orderNumber, eachOrder.wayBillNo)" >Create Package</button>
+                                        </div>
+                                        <div class="col-12 mt-2" *ngIf="eachOrder.packageCreateStatus != 'Pending'">
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Update Status</button>
+                                        </div>
+                                        <div class="col-12 mt-2" *ngIf="eachOrder.packageStatus != 'Processing'">
+                                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">Delete Package</button>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                            </tbody>
                             <tfoot>
                                 <tr>
                                     <th>#</th>
-                                    <th>Category Name</th>
-                                    <th>Status</th>
-                                    <th>Description</th>
+                                    <th>Order Number</th>
+                                    <th>WayBill</th>
+                                    <th>Courier Status</th>
+                                    <th>Package Create Status</th>
                                     <th>Create Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </tfoot>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="">Select Status:</label>
+                                </div>
+                                <div class="col-12">
+                                    <select name="" class="form-control" id="" formControlName="orderStatus">
+                                        <option value="">-- Select Order Status --</option>
+                                        <option value="5">Delivered</option>
+                                        <option value="6">Returned</option>
+                                        <option value="7">Complted</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
