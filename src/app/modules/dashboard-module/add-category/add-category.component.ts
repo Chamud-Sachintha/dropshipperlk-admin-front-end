@@ -49,7 +49,8 @@ export class AddCategoryComponent implements OnInit {
 
   loadCategoryList(): void {
     this.searchParamModel.token = sessionStorage.getItem("authToken");
-  
+    
+    this.spinner.show();
     this.categoryService.getCategoryList(this.searchParamModel).subscribe((resp: any) => {
       if (resp.code === 1) {
         this.categoryList = resp.data[0].map((eachCategory: Category) => {
@@ -58,6 +59,8 @@ export class AddCategoryComponent implements OnInit {
         });
         this.fillteredcategoryList = this.categoryList; // Initialize filtered list
       }
+
+      this.spinner.hide();
     });
   }
 

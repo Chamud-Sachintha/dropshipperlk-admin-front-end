@@ -29,7 +29,6 @@ export class CheckOrderComponent implements OnInit {
   ngOnInit(): void {
 
     this.orderId = this.activatedRoute.snapshot.params['orderId'];
-console.log('orddrid',this.orderId);
     this.loadOrderInfo();
   }
 
@@ -130,6 +129,7 @@ console.log('orddrid',this.orderId);
     this.requestParamModel.token = sessionStorage.getItem("authToken");
     this.requestParamModel.orderId = this.orderId;
 
+    this.spinner.show();
     this.orderService.getOrderInfoByOd(this.requestParamModel).subscribe((resp: any) => {
 
       const dataList = JSON.parse(JSON.stringify(resp))
@@ -174,6 +174,8 @@ console.log('orddrid',this.orderId);
         // this.orderInfoModel.image3 = environment.devServer + "images/" + dataList.data[0].images.image2;
         // this.orderInfoModel.image4 = environment.devServer + "images/" + dataList.data[0].images.image3;
       }
+
+      this.spinner.hide();
     })
   }
 

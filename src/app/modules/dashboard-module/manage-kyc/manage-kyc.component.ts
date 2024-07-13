@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { KYCInfoModel } from 'src/app/shared/models/KYCInfoModel/kycinfo-model';
 import { Request } from 'src/app/shared/models/Request/request';
@@ -21,7 +22,7 @@ export class ManageKycComponent implements OnInit {
   fullName = '';
   sellerId = '';
 
-  constructor(private kycService: KycService, private tostr: ToastrService) {}
+  constructor(private kycService: KycService, private tostr: ToastrService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.loadKycList();
@@ -66,6 +67,7 @@ export class ManageKycComponent implements OnInit {
   loadKycList() {
     this.searchParamModel.token = sessionStorage.getItem("authToken");
 
+    this.spinner.show();
     this.kycService.getAllKycList(this.searchParamModel).subscribe((resp: any) => {
 
       const dataList = JSON.parse(JSON.stringify(resp));
@@ -78,6 +80,8 @@ export class ManageKycComponent implements OnInit {
           this.kycList.push(eachDoc);
         })
       }
+
+      this.spinner.hide();
     })
   }
 

@@ -10,6 +10,7 @@ import { PrintService } from 'src/app/shared/services/print/print.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
 interface CustomerDetails {
@@ -42,7 +43,8 @@ export class OrderManagementComponent implements OnInit {
   OrderCusDetails: CustomerDetails | null = null;
   filteredOrderRequestList: OrderRequest[] = [];
 
-  constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) { }
+  constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder
+              , private toastr: ToastrService, private spinner: NgxSpinnerService) { }
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 100;
@@ -211,6 +213,7 @@ export class OrderManagementComponent implements OnInit {
 
     this.requestParamModel.token = sessionStorage.getItem("authToken");
 
+    this.spinner.show();
     this.orderService.getOrderRequestList(this.requestParamModel).subscribe((resp: any) => {
 
       const dataList = JSON.parse(JSON.stringify(resp));
@@ -220,6 +223,8 @@ export class OrderManagementComponent implements OnInit {
           this.orderRequestList.push(eachOrder);
         })
       }
+
+      this.spinner.hide();
     })
   }
 

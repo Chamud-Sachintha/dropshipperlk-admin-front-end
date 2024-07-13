@@ -53,6 +53,7 @@ export class CheckPayoutComponent implements OnInit {
     this.requestPatamModel.token = sessionStorage.getItem("authToken");
     this.requestPatamModel.sellerId = this.sellerId;
 
+    this.spinner.show();
     this.payOutService.getPayOutInfo(this.requestPatamModel).subscribe((resp: any) => {
 
       const dataList = JSON.parse(JSON.stringify(resp));
@@ -70,6 +71,8 @@ export class CheckPayoutComponent implements OnInit {
           this.payOutLogList.push(eachData)
         })
       }
+
+      this.spinner.hide();
     })
   }
 

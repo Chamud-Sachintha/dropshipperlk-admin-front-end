@@ -1,4 +1,7 @@
 <app-header-banner [headerText]="'Order Management'"></app-header-banner>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -22,8 +25,7 @@
                                 </div>
                                 <div class="col-6">
                                     <button class="btn btn-primary btn-sm" style="width: 120px;" data-toggle="modal"
-                                    data-target="#exampleModalBulkOrder"
-                                    >Change Status</button>
+                                        data-target="#exampleModalBulkOrder">Change Status</button>
                                 </div>
                             </div>
                         </div>
@@ -86,32 +88,40 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                           <tbody>
-                            <tr *ngFor="let eachOrder of filteredOrderRequestList | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; index as i">
-                                <td>{{ i + 1 }}</td>
-                                <td>{{ eachOrder.order }}</td>
-                                <!-- <td>{{ eachOrder.productName }}</td> -->
-                                <td>{{ eachOrder.resellerName }}</td>
-                                <td>{{ eachOrder.resellerReferral }}</td>
-                                <!-- <td>{{ eachOrder.customerName }}</td> -->
-                                <!-- <td>{{ eachOrder.quantity }}</td> -->
-                                <td>{{ eachOrder.paymentMethod }}</td>
-                                <td>{{ eachOrder.paymentStatus }}</td>
-                                <td>{{ eachOrder.orderStatus }}</td>
-                                <td>{{ eachOrder.trackingNumber }}</td>
-                                <td>{{ eachOrder.courierName }}</td>
-                                <td>{{ eachOrder.totalAmount }} .00</td>
-                                <td style="width: 100px;">{{ eachOrder.orderPlaceDate }}</td>
-                                <td>
-                                    <div class="row text-center">
-                                        <div class="col-8">
-                                            <button class="btn btn-primary btn-sm" (click)="onClickViewOrder(eachOrder.id)" style="width: 120px;">View Order</button>
-                                        </div>
-                                        <div class="col-8 mt-1" id="s{{ i }}">
-                                            <button class="btn btn-success btn-sm" style="width: 120px;" (click)="onClickSelectToPrint(i, eachOrder.order)">Select to Print</button>
-                                        </div>
-                                        <div class="col-8  mt-1">
-                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal2" (click)="onClickLoadModel(eachOrder.id)" style="width: 120px;">Edit Details</button>
+                            <tbody>
+                                <tr
+                                    *ngFor="let eachOrder of filteredOrderRequestList | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; index as i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ eachOrder.order }}</td>
+                                    <!-- <td>{{ eachOrder.productName }}</td> -->
+                                    <td>{{ eachOrder.resellerName }}</td>
+                                    <td>{{ eachOrder.resellerReferral }}</td>
+                                    <!-- <td>{{ eachOrder.customerName }}</td> -->
+                                    <!-- <td>{{ eachOrder.quantity }}</td> -->
+                                    <td>{{ eachOrder.paymentMethod }}</td>
+                                    <td>{{ eachOrder.paymentStatus }}</td>
+                                    <td>{{ eachOrder.orderStatus }}</td>
+                                    <td>{{ eachOrder.trackingNumber }}</td>
+                                    <td>{{ eachOrder.courierName }}</td>
+                                    <td>{{ eachOrder.totalAmount }} .00</td>
+                                    <td style="width: 100px;">{{ eachOrder.orderPlaceDate }}</td>
+                                    <td>
+                                        <div class="row text-center">
+                                            <div class="col-8">
+                                                <button class="btn btn-primary btn-sm"
+                                                    (click)="onClickViewOrder(eachOrder.id)" style="width: 120px;">View
+                                                    Order</button>
+                                            </div>
+                                            <div class="col-8 mt-1" id="s{{ i }}">
+                                                <button class="btn btn-success btn-sm" style="width: 120px;"
+                                                    (click)="onClickSelectToPrint(i, eachOrder.order)">Select to
+                                                    Print</button>
+                                            </div>
+                                            <div class="col-8  mt-1">
+                                                <button class="btn btn-primary btn-sm" data-toggle="modal"
+                                                    data-target="#exampleModal2"
+                                                    (click)="onClickLoadModel(eachOrder.id)" style="width: 120px;">Edit
+                                                    Details</button>
 
                                             </div>
                                             <div class="col-8  mt-1" *ngIf="eachOrder.bank_slip != ''">
@@ -219,7 +229,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
-                        <form action="" [formGroup]="bulkOrderChangeStatusForm" (ngSubmit)="onSubmitBulkOrderChangeStatus()">
+                        <form action="" [formGroup]="bulkOrderChangeStatusForm"
+                            (ngSubmit)="onSubmitBulkOrderChangeStatus()">
                             <div class="row">
                                 <div class="col-12">
                                     <label for="">Select Status:</label>

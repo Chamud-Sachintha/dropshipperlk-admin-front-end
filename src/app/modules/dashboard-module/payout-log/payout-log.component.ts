@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PayOut } from 'src/app/shared/models/PayOut/pay-out';
 import { Request } from 'src/app/shared/models/Request/request';
 import { PayOutService } from 'src/app/shared/services/pay-out/pay-out.service';
@@ -17,7 +18,7 @@ export class PayoutLogComponent implements OnInit {
   itemsPerPage = 10;
   totalItems = 100;
 
-  constructor(private router: Router, private payOutService: PayOutService) {}
+  constructor(private router: Router, private payOutService: PayOutService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.loadSellerList();
@@ -35,6 +36,7 @@ export class PayoutLogComponent implements OnInit {
   loadSellerList() {
     this.requestParamModel.token = sessionStorage.getItem("authToken");
     
+    this.spinner.show();
     this.payOutService.getSellerList(this.requestParamModel).subscribe((resp: any) => {
 
       const dataList = JSON.parse(JSON.stringify(resp))
@@ -44,6 +46,8 @@ export class PayoutLogComponent implements OnInit {
           this.sellerList.push(eachSeller);
         })
       }
+
+      this.spinner.hide();
     })
   }
 

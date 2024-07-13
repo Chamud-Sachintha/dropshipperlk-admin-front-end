@@ -49,7 +49,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     DashboardModuleRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSpinnerModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     HttpClientModule, 
     AngularEditorModule,
     PaginationModule.forRoot(),

@@ -142,10 +142,11 @@ export class AddProductComponent implements OnInit, OnDestroy {
   loadProductList() {
     this.requestParamModel.token = sessionStorage.getItem("authToken");
 
+    this.spinner.show();
     this.productService.getProductList(this.requestParamModel).subscribe((resp: any) => {
 
       const dataList = JSON.parse(JSON.stringify(resp));
-console.log("dataList", dataList);
+
       if (resp.code === 1) {
         dataList.data[0].forEach((eachData: Product) => {
           const formatedDate = parseInt(eachData.createTime) * 1000;
@@ -156,12 +157,15 @@ console.log("dataList", dataList);
           this.productInfoList.push(eachData);
         })
       }
+
+      this.spinner.hide();
     })
   }
 
   loadCategoryList() {
     this.searchParamModel.token = sessionStorage.getItem("authToken");
 
+    this.spinner.show();
     this.categoryService.getCategoryList(this.searchParamModel).subscribe((resp: any) => {
 
       const dataList = JSON.parse(JSON.stringify(resp));
@@ -171,6 +175,8 @@ console.log("dataList", dataList);
           this.categoryList.push(eachCategory);
         })
       }
+
+      this.spinner.hide();
     })
   }
 

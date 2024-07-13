@@ -20,17 +20,17 @@ export class ManageUsersComponent implements OnInit {
   ResellerList: Reseller[] = [];
   requestMode = new Request();
   filteredResell: Reseller[] = [];
-  searchText ='';
+  searchText = '';
 
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 100;
 
-  
+
   constructor(private formBuilder: FormBuilder, private router: Router, private ResellerService: UserManagementService
     , private tosr: ToastrService
-    , private spinner: NgxSpinnerService) {}
-  
+    , private spinner: NgxSpinnerService) { }
+
   ngOnInit(): void {
     this.loadAllresellers();
     this.filteredResell = this.ResellerList;
@@ -41,51 +41,54 @@ export class ManageUsersComponent implements OnInit {
     this.loadAllresellers();
   }
 
-  loadAllresellers(){
+  loadAllresellers() {
     this.requestMode.token = sessionStorage.getItem("authToken");
 
-      this.ResellerService.getReseller(this.requestMode).subscribe((resp: any) => {
-        const dataList = JSON.parse(JSON.stringify(resp));
-        if (resp.code === 1) {
-          dataList.data[0].forEach((eachOrder: Reseller) => {
-            this.ResellerList.push(eachOrder);
-            
-          })
-        } else {
-          this.tosr.error("Not Data Found", resp.message);
-        }
-      })
-    }
+    this.spinner.show();
+    this.ResellerService.getReseller(this.requestMode).subscribe((resp: any) => {
+      const dataList = JSON.parse(JSON.stringify(resp));
+      if (resp.code === 1) {
+        dataList.data[0].forEach((eachOrder: Reseller) => {
+          this.ResellerList.push(eachOrder);
 
-    filterReselList() {
-     
-      if (this.searchText.trim() === '') {
-        this.filteredResell = this.ResellerList;
+        })
       } else {
-        this.filteredResell = this.ResellerList.filter(reseller =>
-          reseller.full_name.toLowerCase().includes(this.searchText.toLowerCase())
-        );
+        this.tosr.error("Not Data Found", resp.message);
       }
-      
+
+      this.spinner.hide();
+    })
+  }
+
+  filterReselList() {
+
+    if (this.searchText.trim() === '') {
+      this.filteredResell = this.ResellerList;
+    } else {
+      this.filteredResell = this.ResellerList.filter(reseller =>
+        reseller.full_name.toLowerCase().includes(this.searchText.toLowerCase())
+      );
     }
 
-    onClickResetPassword(id: string){
-      this.requestMode.token = sessionStorage.getItem("authToken");
-      this.requestMode.sellerId = id;
+  }
 
-      this.ResellerService.getResetPass(this.requestMode).subscribe((resp: any) => {
-       
-        if (resp.code === 1) {
-          
-          this.tosr.success('Operation Complete', 'Success Reset');
-          window.location.reload();
-         
-        } else {
-          this.tosr.error("Error found", resp.message);
-        }
-      })
+  onClickResetPassword(id: string) {
+    this.requestMode.token = sessionStorage.getItem("authToken");
+    this.requestMode.sellerId = id;
 
-    }
-  
- 
+    this.ResellerService.getResetPass(this.requestMode).subscribe((resp: any) => {
+
+      if (resp.code === 1) {
+
+        this.tosr.success('Operation Complete', 'Success Reset');
+        window.location.reload();
+
+      } else {
+        this.tosr.error("Error found", resp.message);
+      }
+    })
+
+  }
+
+
 }

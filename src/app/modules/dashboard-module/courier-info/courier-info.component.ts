@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CourierPackage } from 'src/app/shared/models/CourierPackage/courier-package';
 import { Request } from 'src/app/shared/models/Request/request';
@@ -18,7 +19,9 @@ export class CourierInfoComponent implements OnInit {
   orderStatusChangeForm!: FormGroup;
   selectedOrderNumber!: any;
 
-  constructor(private courierService: CourierService, private tostr: ToastrService, private formBuilder: FormBuilder) {}
+  constructor(private courierService: CourierService, private tostr: ToastrService, private formBuilder: FormBuilder
+              , private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.getCourierPackageList();
@@ -71,6 +74,8 @@ export class CourierInfoComponent implements OnInit {
 
   getCourierPackageList() {
     this.requestParamModel.token = localStorage.getItem("authToken");
+
+    this.spinner.show();
     this.courierService.getCourierPackageList(this.requestParamModel).subscribe((resp: any) => {
       if (resp.code === 1) {
         const dataList = JSON.parse(JSON.stringify(resp));
@@ -82,6 +87,8 @@ export class CourierInfoComponent implements OnInit {
           this.packageListArray.push(el);
         })
       }
+
+      this.spinner.hide();
     })
   }
 

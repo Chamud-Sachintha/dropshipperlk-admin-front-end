@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { PrintService } from 'src/app/shared/services/print/print.service';
 import { Request } from 'src/app/shared/models/Request/request';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-reports',
@@ -17,7 +18,7 @@ export class ReportsComponent implements OnInit {
   requestParamModel: any;
 
 
-  constructor(private fb: FormBuilder, private printService: PrintService) {}
+  constructor(private fb: FormBuilder, private printService: PrintService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
    
@@ -27,6 +28,7 @@ export class ReportsComponent implements OnInit {
     this.requestDownload.selectedReportType = this.selectedReportType;
     this.requestDownload.token = sessionStorage.getItem('authToken');
 
+    this.spinner.show();
     this.printService.DownOrderRepport(this.requestDownload).subscribe(
       (blob: Blob) => {
         const link = document.createElement('a');
@@ -38,5 +40,7 @@ export class ReportsComponent implements OnInit {
         console.error('Error downloading report:', error);
       }
     );
+
+    this.spinner.hide();
   }
 }
