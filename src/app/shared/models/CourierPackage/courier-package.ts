@@ -5,4 +5,5 @@ export class CourierPackage {
     packageCreateStatus!: string;
     packageStatus!: string;
     createTime!: string;
+    orderStatus!: string
 }

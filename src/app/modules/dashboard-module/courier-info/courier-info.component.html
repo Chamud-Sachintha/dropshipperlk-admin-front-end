@@ -19,6 +19,7 @@
                                     <th>WayBill</th>
                                     <th>Courier Status</th>
                                     <th>Package Create Status</th>
+                                    <th>Order Status</th>
                                     <th>Create Date</th>
                                     <th>Actions</th>
                                 </tr>
@@ -30,6 +31,7 @@
                                 <td>{{ eachOrder.wayBillNo }}</td>
                                 <td>{{ eachOrder.packageStatus }}</td>
                                 <td>{{ eachOrder.packageCreateStatus }}</td>
+                                <td>{{ eachOrder.orderStatus }}</td>
                                 <td>{{ eachOrder.createTime | date }}</td>
                                 <td>
                                     <div class="row">
@@ -37,11 +39,11 @@
                                             <button class="btn btn-primary btn-sm" data-toggle="modal" (click)="onClickCreatePackage(eachOrder.orderNumber, eachOrder.wayBillNo)" >Create Package</button>
                                         </div>
                                         <div class="col-12 mt-2" *ngIf="eachOrder.packageCreateStatus != 'Pending'">
-                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Update Status</button>
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" (click)="setSelectedOrder(eachOrder.orderNumber)">Update Status</button>
                                         </div>
-                                        <div class="col-12 mt-2" *ngIf="eachOrder.packageStatus != 'Processing'">
+                                        <!-- <div class="col-12 mt-2" *ngIf="eachOrder.packageStatus != 'Processing'">
                                             <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">Delete Package</button>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </td>
                             </tr>
@@ -53,6 +55,7 @@
                                     <th>WayBill</th>
                                     <th>Courier Status</th>
                                     <th>Package Create Status</th>
+                                    <th>Order Status</th>
                                     <th>Create Date</th>
                                     <th>Actions</th>
                                 </tr>
@@ -77,7 +80,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
-                        <form action="">
+                        <form action="" [formGroup]="orderStatusChangeForm" (ngSubmit)="onSubmitOrderStatusChange()">
                             <div class="row">
                                 <div class="col-12">
                                     <label for="">Select Status:</label>

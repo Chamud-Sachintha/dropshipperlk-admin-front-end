@@ -19,4 +19,9 @@ export class CourierService {
     const path = environment.apiURL + "create-package";
     return this.http.post(path, requestParamModel);
   }
+
+  updateCourierStatus(requestModel: Request) {
+    const path = environment.apiURL + "update-courier-status";
+    return this.http.post(path, requestModel);
+  }
 }
