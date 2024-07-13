@@ -3,6 +3,7 @@ export const environment = {
     fileServer: 'http://localhost:8001/kyc/',
     fileServerBack: 'http://localhost:8001/',
     devServer: 'http://localhost:8000/',
+    isShowPopup: true,
     // apiURL: 'https://adminapi.dropshipper.lk/api/',
     // fileServer: 'https://adminapi.dropshipper.lk/kyc/',
     // fileServerBack: 'https://resellerapi.dropshipper.lk/',

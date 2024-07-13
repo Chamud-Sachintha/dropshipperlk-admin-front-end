@@ -52,10 +52,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxSpinnerModule,
     HttpClientModule, 
     AngularEditorModule,
-    NgxPaginationModule,
     PaginationModule.forRoot(),
-    
-    
+    NgxPaginationModule
   ]
 })
 export class DashboardModuleModule { }

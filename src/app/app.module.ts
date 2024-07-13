@@ -13,9 +13,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FilterPipe } from './pipes/filter.pipe';
 import { ReportsComponent } from './modules/dashboard-module/reports/reports.component';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [

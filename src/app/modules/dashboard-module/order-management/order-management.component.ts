@@ -10,7 +10,7 @@ import { PrintService } from 'src/app/shared/services/print/print.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-declare var $: any; 
+declare var $: any;
 
 interface CustomerDetails {
   order: string;
@@ -41,13 +41,13 @@ export class OrderManagementComponent implements OnInit {
   bulkOrderChangeStatusForm!: FormGroup;
   OrderCusDetails: CustomerDetails | null = null;
   filteredOrderRequestList: OrderRequest[] = [];
-  
+
   constructor(private orderService: OrderService, private route: Router, private printService: PrintService, private fb: FormBuilder, private toastr: ToastrService) { }
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 100;
 
- 
+
 
   ngOnInit(): void {
     this.loadOrderRequestList();
@@ -147,10 +147,10 @@ export class OrderManagementComponent implements OnInit {
     }
   }
 
-pageChanged(event: any): void {
-  this.currentPage = event;
-  this.loadOrderRequestList();
-}
+  pageChanged(event: any): void {
+    this.currentPage = event;
+    this.loadOrderRequestList();
+  }
 
   onClickPrintWayBillPdf() {
     this.requestParamModel.orderNumbers = this.selectedOrderNumbers;
