@@ -22,6 +22,7 @@ export class AddCategoryComponent implements OnInit {
   categoryList: Category[] = [];
   fillteredcategoryList: Category[] = [];
   updateCategoryForm!: FormGroup;
+  imagePreview: string | ArrayBuffer | null = null;
   searchText = '';
 
   currentPage = 1;
@@ -45,6 +46,17 @@ export class AddCategoryComponent implements OnInit {
   pageChanged(event: any): void {
     this.currentPage = event;
     this.loadCategoryList();
+  }
+
+  onImageChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result; // Set image preview URL
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   loadCategoryList(): void {
@@ -82,7 +94,7 @@ export class AddCategoryComponent implements OnInit {
 
     this.categoryInfoModel.token = sessionStorage.getItem("authToken");
     this.categoryInfoModel = this.createCategoryForm.value;
-
+    console.log(this.categoryInfoModel);
     this.spinner.show();
     this.categoryService.addCategory(this.categoryInfoModel).subscribe((resp: any) => {
       this.spinner.hide();

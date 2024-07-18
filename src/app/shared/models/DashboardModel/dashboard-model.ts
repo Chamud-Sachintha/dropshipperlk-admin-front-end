@@ -9,4 +9,9 @@ export class DashboardModel {
     totalEarnigs!: string;
     pendingPayment!: string;
     deliverdPayment!: string;
+    totalreseller!:string;
+    pendingreseller!:string;
+    aprovedreseller!:string;
+    returnorder!:string;
+    holdorder!:string;
 }

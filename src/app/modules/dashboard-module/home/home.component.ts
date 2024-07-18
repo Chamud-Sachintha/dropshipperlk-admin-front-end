@@ -36,6 +36,11 @@ export class HomeComponent implements OnInit {
         this.dashboardModel.pendingPayment = dataList.data[0].pendingPayment;
         this.dashboardModel.paidOrders = dataList.data[0].paidOrders;
         this.dashboardModel.deliverdPayment = dataList.data[0].DeliverdPayment;
+        this.dashboardModel.totalreseller = dataList.data[0].TotalResellerCount;
+        this.dashboardModel.pendingreseller = dataList.data[0].PendingResellerCount;
+        this.dashboardModel.aprovedreseller = dataList.data[0].ActiveResellerCount;
+        this.dashboardModel.returnorder = dataList.data[0].orderreturnedcount;
+        this.dashboardModel.holdorder = dataList.data[0].orderholdcount;
       }
     })
   }
