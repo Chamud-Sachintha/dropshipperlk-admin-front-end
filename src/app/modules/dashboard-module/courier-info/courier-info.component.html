@@ -7,7 +7,39 @@
         <div class="card">
             <div class="row">
                 <div class="col-8">
-                    <h5 class="card-header">category Informations</h5>
+                    <h5 class="card-header">Courier Informations</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <h5 class="card-header">Search Orders:</h5>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="text" class="form-control mt-1" [(ngModel)]="searchText">
+                        </div>
+
+                        Filter Category:
+                        <div class="col-md-2">
+                            <select id="filterCategory" class="form-control" [(ngModel)]="selectedFilter"
+                                (change)="filterOrderRequestList()">
+                                <option value="" selected>All</option>
+                                <option value="orderNo">Order No</option>
+                                <option value="resellerName">Reseller Name</option>
+                                <option value="resellerReferral">Reseller Referral</option>
+                                <option value="paymentStatus">Payment Status</option>
+                                <option value="orderStatus">Order Status</option>
+                                <option value="trackingNumber">Tracking Number</option>
+                                <option value="courierName">Courier Name</option>
+                                <option value="totalAmount">Total Amount</option>
+                                <option value="orderDate">Order Date</option>
+
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -28,8 +60,8 @@
                                 </tr>
                             </thead>
                            <tbody>
-                            <tr *ngFor="let eachOrder of this.packageListArray">
-                                <td>1</td>
+                            <tr *ngFor="let eachOrder of this.filteredOrderRequestList; index as i">
+                                <td>{{ i + 1 }}</td>
                                 <td>{{ eachOrder.orderNumber }}</td>
                                 <td>{{ eachOrder.wayBillNo }}</td>
                                 <td>{{ eachOrder.packageStatus }}</td>

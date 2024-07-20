@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CourierPackage } from 'src/app/shared/models/CourierPackage/courier-package';
+import { OrderRequest } from 'src/app/shared/models/OrderRequest/order-request';
 import { Request } from 'src/app/shared/models/Request/request';
 import { CourierService } from 'src/app/shared/services/courier/courier.service';
 
@@ -18,6 +19,10 @@ export class CourierInfoComponent implements OnInit {
   packageListArray: CourierPackage[] = [];
   orderStatusChangeForm!: FormGroup;
   selectedOrderNumber!: any;
+  searchText = '';
+  selectedFilter = '';
+  filteredOrderRequestList: CourierPackage[] = [];
+  orderRequestList: OrderRequest[] = [];
 
   constructor(private courierService: CourierService, private tostr: ToastrService, private formBuilder: FormBuilder
               , private spinner: NgxSpinnerService
@@ -26,6 +31,8 @@ export class CourierInfoComponent implements OnInit {
   ngOnInit(): void {
     this.getCourierPackageList();
     this.initOrderStatusChangeForm();
+
+    this.filteredOrderRequestList = this.packageListArray;
   }
 
   setSelectedOrder(orderNumber: any) {
@@ -73,7 +80,7 @@ export class CourierInfoComponent implements OnInit {
   }
 
   getCourierPackageList() {
-    this.requestParamModel.token = localStorage.getItem("authToken");
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
 
     this.spinner.show();
     this.courierService.getCourierPackageList(this.requestParamModel).subscribe((resp: any) => {
@@ -90,6 +97,29 @@ export class CourierInfoComponent implements OnInit {
 
       this.spinner.hide();
     })
+  }
+
+  filterOrderRequestList() {
+    const searchTextLower = this.searchText.toLowerCase();
+    console.log(this.selectedFilter)
+    switch (this.selectedFilter) {
+      case 'orderNo':
+        this.filteredOrderRequestList = this.packageListArray.filter(order =>
+          order.orderNumber.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'orderStatus':
+        this.filteredOrderRequestList = this.packageListArray.filter(order =>
+          order.orderStatus.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case '':
+        this.filteredOrderRequestList = this.packageListArray;
+
+        break;
+      default:
+        this.filteredOrderRequestList = this.packageListArray;
+    }
   }
 
 }

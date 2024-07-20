@@ -82,6 +82,8 @@ export class OrderManagementComponent implements OnInit {
 
       this.orderService.bulkOrderUpdate(this.requestParamModel).subscribe((resp: any) => {
         if (resp.code === 1) {
+          this.toastr.success("Update Order Status", "Order Status Update Successfully.");
+          
           if (orderStatus == 4) {
             $("#exampleModalBulkOrder .close").click();
             this.route.navigate(['/app/courier-info'])
