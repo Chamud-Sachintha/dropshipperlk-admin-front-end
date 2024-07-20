@@ -11,6 +11,12 @@
                         <h5 class="card-header">KYC Informations</h5>
             
                         <div class="row">
+                            <div class="col-md-2">
+                                <h5 class="card-header">Search : </h5>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control mt-1" [(ngModel)]="searchText" (input)="filterOrderRequestList()">
+                            </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first">
@@ -21,18 +27,20 @@
                                                 <th>Mobile</th>
                                                 <th>Address</th>
                                                 <th>KYC Status</th>
+                                                <th>Referral Code</th>
                                                 <th>Create Time</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                        <tbody>
-                                        <tr *ngFor="let eachDoc of this.kycList; index as i">
+                                        <tr *ngFor="let eachDoc of this.fillteredkycList; index as i">
                                             <td>{{ i + 1 }}</td>
                                             <td>{{ eachDoc.sellerName }}</td>
                                             <td>{{ eachDoc.mobileNumber }}</td>
                                             <td>{{ eachDoc.address }}</td>
                                             <td *ngIf="eachDoc.status == '0'">Pending</td>
                                             <td *ngIf="eachDoc.status == '1'">Approved</td>
+                                            <td>{{ eachDoc.refcode }}</td>
                                             <td>{{ eachDoc.createTime | date }}</td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" (click)="onClickCheckInfo(eachDoc)">Check</button>

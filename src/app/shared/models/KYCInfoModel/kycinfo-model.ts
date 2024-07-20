@@ -8,4 +8,5 @@ export class KYCInfoModel {
     frontImage!: string;
     backImage!: string;
     createTime!: string;
+    refcode!:string;
 }

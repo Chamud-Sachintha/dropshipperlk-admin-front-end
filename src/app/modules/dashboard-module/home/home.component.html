@@ -16,6 +16,24 @@
         <div class="col-lg-4">
             <div class="card bg-c-green order-card">
                 <div class="card-block">
+                    <h6 class="m-b-20">Returned Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-user f-left"></i><span>{{ this.dashboardModel.returnorder }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Hold Order</h6>
+                    <h2 class="text-right"><i class="fa fa-user f-left"></i><span>{{ this.dashboardModel.holdorder }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
                     <h6 class="m-b-20">In Courier Orders</h6>
                     <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>{{ this.dashboardModel.inCourierOrderCount }}</span></h2>
                     <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
@@ -89,5 +107,33 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-4">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Total Resellers</h6>
+                    <h2 class="text-right"><i class="fa fa-user f-left"></i><span>{{ this.dashboardModel.totalreseller }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Pending Resslers</h6>
+                    <h2 class="text-right"><i class="fa fa-user f-left"></i><span>{{ this.dashboardModel.pendingreseller }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Approved Resslers</h6>
+                    <h2 class="text-right"><i class="fa fa-user f-left"></i><span>{{ this.dashboardModel.aprovedreseller }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

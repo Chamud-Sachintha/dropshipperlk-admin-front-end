@@ -15,12 +15,14 @@ import { environment } from 'src/environments/environment.development';
 export class ManageKycComponent implements OnInit {
 
   kycList: KYCInfoModel[] = [];
+  fillteredkycList: KYCInfoModel[] = [];
   searchParamModel = new SearchParam();
   requestMode = new Request();
   frontNICImage = '';
   backNICImage = '';
   fullName = '';
   sellerId = '';
+  searchText = '';
 
   constructor(private kycService: KycService, private tostr: ToastrService, private spinner: NgxSpinnerService) {}
 
@@ -47,6 +49,8 @@ export class ManageKycComponent implements OnInit {
       })
     }
   }
+
+ 
 
   onClickCheckInfo(kycId: KYCInfoModel) {
     this.frontNICImage = kycId.frontImage;
@@ -76,13 +80,27 @@ export class ManageKycComponent implements OnInit {
         dataList.data[0].forEach((eachDoc: KYCInfoModel) => {
           const formatedDate = parseInt(eachDoc.createTime) * 1000;
           eachDoc.createTime = formatedDate.toString();
-
+          this.fillteredkycList.push(eachDoc);
+          console.log(eachDoc);
           this.kycList.push(eachDoc);
         })
       }
 
       this.spinner.hide();
     })
+  }
+
+  filterOrderRequestList() {
+    if (!this.searchText) {
+      this.fillteredkycList = this.kycList; 
+    } else {
+      const searchTextLower = this.searchText.toLowerCase();
+      this.fillteredkycList = this.kycList.filter(KYCInfoModel =>
+        Object.values(KYCInfoModel).some(value =>
+          value ? value.toString().toLowerCase().includes(searchTextLower) : false
+        )
+      );
+    }
   }
 
 }
