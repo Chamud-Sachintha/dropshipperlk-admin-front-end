@@ -28,6 +28,8 @@ export class CourierInfoComponent implements OnInit {
   selectedOrderNumbers: any[] = [];
   selectedOrdersToPrint = 0;
   currentPage = 1;
+  itemsPerPage = 10;
+  totalItems = 100;
 
   constructor(private courierService: CourierService, private tostr: ToastrService, private formBuilder: FormBuilder
               , private spinner: NgxSpinnerService , private printService: PrintService
