@@ -6,4 +6,6 @@ export class CourierPackage {
     packageStatus!: string;
     createTime!: string;
     orderStatus!: string
+    resellerName!: string;
+    refCode!: string;
 }

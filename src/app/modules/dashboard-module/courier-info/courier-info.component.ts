@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -6,6 +7,7 @@ import { CourierPackage } from 'src/app/shared/models/CourierPackage/courier-pac
 import { OrderRequest } from 'src/app/shared/models/OrderRequest/order-request';
 import { Request } from 'src/app/shared/models/Request/request';
 import { CourierService } from 'src/app/shared/services/courier/courier.service';
+import { PrintService } from 'src/app/shared/services/print/print.service';
 
 @Component({
   selector: 'app-courier-info',
@@ -23,9 +25,12 @@ export class CourierInfoComponent implements OnInit {
   selectedFilter = '';
   filteredOrderRequestList: CourierPackage[] = [];
   orderRequestList: OrderRequest[] = [];
+  selectedOrderNumbers: any[] = [];
+  selectedOrdersToPrint = 0;
+  currentPage = 1;
 
   constructor(private courierService: CourierService, private tostr: ToastrService, private formBuilder: FormBuilder
-              , private spinner: NgxSpinnerService
+              , private spinner: NgxSpinnerService , private printService: PrintService
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +38,62 @@ export class CourierInfoComponent implements OnInit {
     this.initOrderStatusChangeForm();
 
     this.filteredOrderRequestList = this.packageListArray;
+  }
+
+  pageChanged(event: any): void {
+    this.currentPage = event;
+    this.getCourierPackageList();
+  }
+
+  onClickSelectToPrint(index: number, orderNumber: string) {
+    const formatedIndex = index.toString();
+    const getDivIndex: any = document.getElementById(formatedIndex);
+    const getSelectedDivIndex: any = document.getElementById("s" + formatedIndex);
+
+    getSelectedDivIndex.style.display = "none";
+    getDivIndex.style.display = "";
+
+    this.selectedOrdersToPrint += 1;
+    this.selectedOrderNumbers.push(orderNumber);
+  }
+
+  onClickRemoveSelected(index: number, orderNumber: string) {
+    const formatedIndex = index.toString();
+    const getDivIndex: any = document.getElementById(formatedIndex);
+    const getSelectedDivIndex: any = document.getElementById("s" + formatedIndex);
+
+    getSelectedDivIndex.style.display = "";
+    getDivIndex.style.display = "none";
+
+    this.selectedOrdersToPrint -= 1;
+    this.removeOrderNumber(orderNumber);
+  }
+
+  removeOrderNumber(orderNumber: string) {
+    const index = this.selectedOrderNumbers.indexOf(orderNumber);
+    if (index > -1) { // only splice array when item is found
+      this.selectedOrderNumbers.splice(index, 1); // 2nd parameter means remove one item only
+    }
+  }
+
+  onClickPrintWayBillPdf() {
+    this.requestParamModel.orderNumbers = this.selectedOrderNumbers;
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+
+    this.printService.viewPdf(this.requestParamModel).subscribe(
+      (response: HttpResponse<Blob>) => {
+        if (response.body) {
+          const blob = new Blob([response.body], { type: 'application/pdf' });
+          const url = window.URL.createObjectURL(blob);
+          window.open(url);
+        } else {
+          console.error('Response body is null');
+        }
+      },
+      (error) => {
+        console.error('Error fetching PDF:', error);
+      }
+    );
   }
 
   setSelectedOrder(orderNumber: any) {
@@ -111,6 +172,16 @@ export class CourierInfoComponent implements OnInit {
       case 'orderStatus':
         this.filteredOrderRequestList = this.packageListArray.filter(order =>
           order.orderStatus.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'resellerName':
+        this.filteredOrderRequestList = this.packageListArray.filter(order =>
+          order.resellerName.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'resellerReferral':
+        this.filteredOrderRequestList = this.packageListArray.filter(order =>
+          order.refCode.toString().toLowerCase().includes(searchTextLower)
         );
         break;
       case '':
