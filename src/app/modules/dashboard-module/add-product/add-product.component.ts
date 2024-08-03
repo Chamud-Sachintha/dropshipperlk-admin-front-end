@@ -73,7 +73,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
   pageChanged(event: any): void {
     this.currentPage = event;
-    this.loadProductList();
+    // this.loadProductList();
   }
 
   onClickGetProductInfo(productId: string) {

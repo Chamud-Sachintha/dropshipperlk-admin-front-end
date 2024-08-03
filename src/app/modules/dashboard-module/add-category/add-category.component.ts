@@ -45,7 +45,7 @@ export class AddCategoryComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.currentPage = event;
-    this.loadCategoryList();
+    // this.loadCategoryList();
   }
 
   onImageChange(event: any): void {

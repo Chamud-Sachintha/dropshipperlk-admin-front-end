@@ -44,7 +44,7 @@ export class CourierInfoComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.currentPage = event;
-    this.getCourierPackageList();
+    // this.getCourierPackageList();
   }
 
   onClickSelectToPrint(index: number, orderNumber: string) {

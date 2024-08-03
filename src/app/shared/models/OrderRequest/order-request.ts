@@ -25,4 +25,5 @@ export class OrderRequest {
     orderPlaceDate!: Date;
     bank_slip!: any;
     OrderDate!:any;
+    wayBill!: any;
 }

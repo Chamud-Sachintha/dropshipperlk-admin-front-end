@@ -26,7 +26,7 @@ export class PayoutLogComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.currentPage = event;
-    this.loadSellerList();
+    // this.loadSellerList();
   }
 
   onCickCheckPayout(sellerId: string) {

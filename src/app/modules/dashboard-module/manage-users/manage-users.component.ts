@@ -38,7 +38,7 @@ export class ManageUsersComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.currentPage = event;
-    this.loadAllresellers();
+    // this.loadAllresellers();
   }
 
   loadAllresellers() {
