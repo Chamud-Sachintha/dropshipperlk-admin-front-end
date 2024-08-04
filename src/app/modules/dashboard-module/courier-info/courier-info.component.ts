@@ -186,6 +186,11 @@ export class CourierInfoComponent implements OnInit {
           order.refCode.toString().toLowerCase().includes(searchTextLower)
         );
         break;
+      case 'trackingNumber':
+        this.filteredOrderRequestList = this.packageListArray.filter(order => 
+          order.wayBillNo.toString().toLowerCase().includes(searchTextLower)
+        )
+        break;
       case '':
         this.filteredOrderRequestList = this.packageListArray;
 
