@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Config } from 'src/app/shared/models/Config/config';
 import { SiteBanner } from 'src/app/shared/models/SiteBanner/site-banner';
+import { ConfigService } from 'src/app/shared/services/config/config.service';
 import { SettingsService } from 'src/app/shared/services/settings/settings.service';
 
 @Component({
@@ -12,12 +15,60 @@ import { SettingsService } from 'src/app/shared/services/settings/settings.servi
 export class SiteSettingsComponent implements OnInit {
 
   siteBannerUploadForm!: FormGroup;
+  wayBillRangeForm!: FormGroup;
   siteBannerModel = new SiteBanner();
+  configModel = new Config();
 
-  constructor(private settingsService: SettingsService, private tostrService: ToastrService, private formBuilder: FormBuilder) {}
+  constructor(private settingsService: SettingsService, private tostrService: ToastrService, private formBuilder: FormBuilder
+            , private configService: ConfigService, private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
+
+    this.getConfig();
+
     this.initSiteBannerUploadForm();
+    this.initCreateWayBillRangeForm();
+  }
+
+  getConfig() {
+    this.configModel.token = sessionStorage.getItem("authToken");
+    this.configModel.configName = "wayBillRange";
+
+    this.configService.findConfigByName(this.configModel).subscribe((resp: any) => {
+      if (resp.code === 1) {
+        this.wayBillRangeForm.controls['range'].setValue(resp.data[0].value);
+      }
+    })
+  }
+
+  onSubmitWayBillRangeForm() {
+    const wayBillRange = this.wayBillRangeForm.controls['range'].value;
+
+    if (wayBillRange == null || wayBillRange == "") {
+      this.tostrService.error("Please Enter Waybill Range", "Waybill Range");
+    } else {
+      this.configModel.token = sessionStorage.getItem("authToken");
+      this.configModel.configName = "wayBillRange";
+      this.configModel.configValue = wayBillRange;
+
+      this.spinner.show();
+      this.configService.addNewConfig(this.configModel).subscribe((resp: any) => {
+        if (resp.code === 1) {
+          this.tostrService.success("Config Added Suuceesfully.", "Config Add.");
+        } else {
+          this.tostrService.error(resp.message, "Config Add.");
+        }
+
+        this.spinner.hide();
+      })
+    }
+  }
+
+  initCreateWayBillRangeForm() {
+    this.wayBillRangeForm = this.formBuilder.group({
+      range: ['', Validators.required]
+    })
   }
 
   onSubmitSiteBannerUploadForm() {
