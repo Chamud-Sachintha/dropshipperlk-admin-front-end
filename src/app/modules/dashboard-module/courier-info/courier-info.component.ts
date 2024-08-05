@@ -191,6 +191,21 @@ export class CourierInfoComponent implements OnInit {
           order.wayBillNo.toString().toLowerCase().includes(searchTextLower)
         )
         break;
+      case 'courierStatus':
+        this.filteredOrderRequestList = this.packageListArray.filter(order => 
+          order.packageStatus.toString().toLowerCase().includes(searchTextLower)
+        )
+        break;
+      case 'packageCreateStatus':
+        this.filteredOrderRequestList = this.packageListArray.filter(order => 
+          order.packageCreateStatus.toString().toLowerCase().includes(searchTextLower)
+        )
+        break;
+      case 'orderDate':
+        this.filteredOrderRequestList = this.packageListArray.filter(order =>
+          order.createTime.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
       case '':
         this.filteredOrderRequestList = this.packageListArray;
 
