@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,7 +13,8 @@ import { PrintService } from 'src/app/shared/services/print/print.service';
 @Component({
   selector: 'app-courier-info',
   templateUrl: './courier-info.component.html',
-  styleUrls: ['./courier-info.component.css']
+  styleUrls: ['./courier-info.component.css'],
+  providers: [DatePipe]
 })
 export class CourierInfoComponent implements OnInit {
 
@@ -32,7 +34,7 @@ export class CourierInfoComponent implements OnInit {
   totalItems = 100;
 
   constructor(private courierService: CourierService, private tostr: ToastrService, private formBuilder: FormBuilder
-              , private spinner: NgxSpinnerService , private printService: PrintService
+              , private spinner: NgxSpinnerService , private printService: PrintService, private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -152,7 +154,8 @@ export class CourierInfoComponent implements OnInit {
 
         dataList.data[0].forEach((el: CourierPackage) => {
           const formatedDate = parseInt(el.createTime) * 1000;
-          el.createTime = formatedDate.toString();
+          // el.createTime = formatedDate.toString();
+          el.createTime = this.datePipe.transform(formatedDate, 'yyyy-MM-dd HH:mm:ss');
 
           this.packageListArray.push(el);
         })
@@ -202,6 +205,7 @@ export class CourierInfoComponent implements OnInit {
         )
         break;
       case 'orderDate':
+        console.log("sdsad")
         this.filteredOrderRequestList = this.packageListArray.filter(order =>
           order.createTime.toString().toLowerCase().includes(searchTextLower)
         );

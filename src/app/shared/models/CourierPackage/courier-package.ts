@@ -4,7 +4,7 @@ export class CourierPackage {
     wayBillNo!: string;
     packageCreateStatus!: string;
     packageStatus!: string;
-    createTime!: string;
+    createTime!: any;
     orderStatus!: string
     resellerName!: string;
     refCode!: string;
