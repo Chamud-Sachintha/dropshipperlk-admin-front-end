@@ -35,6 +35,11 @@ export class OrderService {
     return this.http.post(path, requestParamModel);
   }
 
+  setHoldNoticeOdOrder(requestParamModel: Request) {
+    const path = environment.apiURL + "set-hold-notice";
+    return this.http.post(path, requestParamModel);
+  }
+
   refundApprove(requestParamModel: Request) {
     const path = environment.apiURL + "refund-approve";
     return this.http.post(path, requestParamModel);

@@ -24,4 +24,9 @@ export class PayOutService {
     const path = environment.apiURL + "pay-out";
     return this.http.post(path, requestParamModel);
   }
+
+  getPayOutSummeryInfo(requestParamModel: Request) {
+    const path = environment.apiURL + "get-payout-summery";
+    return this.http.post(path, requestParamModel);
+  }
 }

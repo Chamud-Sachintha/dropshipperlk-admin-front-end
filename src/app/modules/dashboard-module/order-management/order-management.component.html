@@ -100,7 +100,10 @@
                                     <td>{{ eachOrder.wayBill }}</td>
                                     <!-- <td>{{ eachOrder.customerName }}</td> -->
                                     <!-- <td>{{ eachOrder.quantity }}</td> -->
-                                    <td>{{ eachOrder.paymentMethod }}</td>
+                                    <td *ngIf="!eachOrder.isStorePickupEnable">{{ eachOrder.paymentMethod }}</td>
+                                    <td *ngIf="eachOrder.isStorePickupEnable">
+                                        <span class="badge badge-info">{{ eachOrder.paymentMethod }}</span>
+                                    </td>
                                     <td>{{ eachOrder.paymentStatus }}</td>
                                     <td>{{ eachOrder.orderStatus }}</td>
                                     <td>{{ eachOrder.trackingNumber }}</td>
@@ -254,6 +257,16 @@
                                         <option value="11">Rescheduled</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="row mt-3" *ngIf="this.bulkOrderChangeStatusForm.controls['orderStatus'].value == 1">
+                                <div class="col-12">
+                                    <label for="">Hold Notice:</label>
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="" class="form-control" id="" formControlName="holdNotice"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-12 mt-3">
                                     <button type="submit" class="btn btn-primary btn-sm">Update</button>
                                 </div>
