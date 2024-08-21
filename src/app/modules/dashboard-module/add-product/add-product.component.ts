@@ -38,6 +38,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   createProfuctForm!: FormGroup;
   updateProductForm!: FormGroup;
   selectedImageFile: File[] = [];
+  UpdatedImages: { [key: string]: File } = {};
   searchParamModel = new SearchParam();
   requestParamModel = new Request();
   categoryList: Category[] = [];
@@ -47,7 +48,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
   descriptionEditor: any
   searchText = '';
   filteredProductList: Product[] = [];
-
+  Uimage!: string; 
+  Uimages: string[] = [];
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 100;
@@ -79,7 +81,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   onClickGetProductInfo(productId: string) {
     this.requestParamModel.productId = productId;
     this.requestParamModel.token = sessionStorage.getItem("authToken");
-
+    this.Uimages =[];
     this.productId = productId
 
     this.productService.getProductInfoById(this.requestParamModel).subscribe((resp: any) => {
@@ -91,8 +93,16 @@ export class AddProductComponent implements OnInit, OnDestroy {
         this.updateProductForm.controls['description'].setValue(dataList.data[0].description);
         this.updateProductForm.controls['price'].setValue(dataList.data[0].price);
         this.updateProductForm.controls['status'].setValue(dataList.data[0].status);
+        this.updateProductForm.controls['stockcount'].setValue(dataList.data[0].stockCount);
 
-        //console.log('stusts',dataList.data[0].status);
+        const images = dataList.data[0].image;
+       
+        for (let key in images) {
+          if (images.hasOwnProperty(key)) {
+            const thumbnail = environment.devServer + "images/" + images[key];
+            this.Uimages.push(thumbnail);
+          }
+        }
       }
     })
   }
@@ -102,7 +112,9 @@ export class AddProductComponent implements OnInit, OnDestroy {
     const description = this.updateProductForm.controls['description'].value;
     const price = this.updateProductForm.controls['price'].value;
     const status = this.updateProductForm.controls['status'].value;
-
+    const stockCount = this.updateProductForm.controls['stockcount'].value;
+   
+    console.log("updated image",this.UpdatedImages);
     if (productName == "") {
       this.tosr.error("Empty Field Found", "Product Name is Required.");
     } else if (description == "") {
@@ -110,14 +122,30 @@ export class AddProductComponent implements OnInit, OnDestroy {
     } else if (price == "") {
       this.tosr.error("Empty Field Found", "Price is Required.");
     } else {
-      this.productModel.token = sessionStorage.getItem("authToken");
+      const formData = new FormData();
+
+      const token: any = sessionStorage.getItem("authToken");
+
+      formData.append("token", token);
+      formData.append("productName", productName);
+      formData.append("price", price);
+      formData.append("description",description);
+      formData.append("stockCount", stockCount);
+      formData.append("status", status);
+      formData.append("productId", this.productId);
+
+      this.selectedImageFile.forEach((eachImage: File, index) => {
+        formData.append("image" + index, eachImage);
+      })
+
+     /* this.productModel.token = sessionStorage.getItem("authToken");
       this.productModel.productName = productName;
       this.productModel.description = description;
       this.productModel.price = price;
       this.productModel.productId = this.productId;
-      this.productModel.status = status;
-
-      this.productService.updateProduct(this.productModel).subscribe((resp: any) => {
+      this.productModel.status = status;*/
+  
+      this.productService.updateProduct(formData).subscribe((resp: any) => {
         if (resp.code === 1) {
          // console.log("Successfully Updated Product Info!",resp.code);
           this.tosr.success("Update Product", "Product Updated Successfully.");
@@ -134,7 +162,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
       productName: ['', Validators.required],
       description: ['', Validators.required],
       price: ['', Validators.required],
-      status: ['']
+      status: [''],
+      stockcount: ['']
     })
   }
   
@@ -242,7 +271,7 @@ console.log("dataList", dataList);
       this.selectedImageFile.forEach((eachImage: File, index) => {
         formData.append("image" + index, eachImage);
       })
-
+     // console.log(formData);
       this.spinner.show();
       this.productService.addProduct(formData).subscribe((resp: any) => {
 
@@ -354,6 +383,31 @@ onClickGetProductDelete(productId: string){
       this.tosr.error("Delete Prodyct", resp.message)
     }
   })
+}
+
+getImageName(image: string): string | null {
+  const imageName = image.split('/').pop();
+  return imageName ? imageName : null;
+}
+
+deleteImage(imageName: string | null) {
+  this.Uimages = this.Uimages.filter(image => this.getImageName(image) !== imageName);
+  console.error('Failed to delete image',imageName);
+  // Call the backend to delete the image
+  this.requestParamModel.productId = this.productId;
+  this.requestParamModel.imageId = imageName;
+  this.requestParamModel.token = sessionStorage.getItem("authToken");
+
+  this.productService.deleteProductImage(this.requestParamModel).subscribe((resp: any) => {
+    if (resp.code === 1) {
+     
+      this.tosr.success("Deleted Product", "Product Image Delete Successully");
+      console.log('Image deleted successfully');
+    } else {
+      this.tosr.error("Delete Prodyct", resp.message)
+      console.error('Failed to delete image');
+    }
+  });
 }
 
 }

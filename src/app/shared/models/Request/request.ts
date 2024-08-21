@@ -14,4 +14,5 @@ export class Request {
     selectedReportType: any;
     CategoryId! : any;
     returnstatus!: any;
+    imageId! : string | null;
 }
