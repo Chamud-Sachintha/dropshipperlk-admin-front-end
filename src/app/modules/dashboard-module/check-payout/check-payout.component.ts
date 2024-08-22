@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { PayOut } from 'src/app/shared/models/PayOut/pay-out';
@@ -22,11 +22,15 @@ export class CheckPayoutComponent implements OnInit {
   sellerId!: string;
 
   constructor(private activatedRoute: ActivatedRoute, private payOutService: PayOutService
-              , private tostr: ToastrService, private spinner: NgxSpinnerService) {}
+              , private tostr: ToastrService, private spinner: NgxSpinnerService, private router: Router) {}
 
   ngOnInit(): void {
     this.sellerId = this.activatedRoute.snapshot.params['sellerId'];
     this.loadPayOutInfo();
+  }
+
+  onClickCheckPayoutLog() {
+    this.router.navigate(['/app/check-payout-log', this.sellerId]);
   }
 
   onClickReleasePayOut(amount: string) {

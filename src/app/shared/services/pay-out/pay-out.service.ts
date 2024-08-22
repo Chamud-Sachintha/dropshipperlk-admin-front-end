@@ -29,4 +29,9 @@ export class PayOutService {
     const path = environment.apiURL + "get-payout-summery";
     return this.http.post(path, requestParamModel);
   }
+
+  getProfitShareLog(requestParamModel: Request) {
+    const path = environment.apiURL + "get-profit-share-log-seller";
+    return this.http.post(path, requestParamModel);
+  }
 }

@@ -22,6 +22,7 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { CourierInfoComponent } from './courier-info/courier-info.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CheckPayoutLogComponent } from './check-payout-log/check-payout-log.component';
 
 
 
@@ -42,7 +43,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FilterPipe,
     HeaderBannerComponent,
     AdminUsersComponent,
-    CourierInfoComponent
+    CourierInfoComponent,
+    CheckPayoutLogComponent
   ],
   imports: [
     CommonModule,
