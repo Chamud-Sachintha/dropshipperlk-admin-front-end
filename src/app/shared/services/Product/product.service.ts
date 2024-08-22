@@ -21,7 +21,7 @@ export class ProductService {
     return this.http.post(path, requestParamModel);
   }
 
-  updateProduct(productInfo: Product) {
+  updateProduct(productInfo: FormData) {
     const path = environment.apiURL + "update-product";
     return this.http.post(path, productInfo);
   }
@@ -33,6 +33,11 @@ export class ProductService {
 
   getProductDeleteById(requestParamModel: Request) {
     const path = environment.apiURL + "get-product-delete-by-id";
+    return this.http.post(path, requestParamModel);
+  }
+
+  deleteProductImage(requestParamModel: Request) {
+    const path = environment.apiURL + "get-product-image-delete-by-id";
     return this.http.post(path, requestParamModel);
   }
 }

@@ -222,6 +222,21 @@
                             
                     </div>
                     <div class="col-12 mt-3">
+                        <label for="">Stock Count</label>
+                        <input type="text" class="form-control" formControlName="stockcount">
+                    </div>
+                    <div class="col-12 mt-3" *ngFor="let image of Uimages; let i = index">
+                        <label for="">Image Thumbnail</label> <br>
+                        <img [src]="image" alt="Image Thumbnail" style="max-width: 40%; height: auto;">
+                        <button class="btn btn-danger btn-sm mt-2 ml-3" type="button" (click)="deleteImage(getImageName(image))">Delete Image</button>
+                      </div>
+
+                      <div class="col-12 mt-3">
+                        <label for="">Images</label>
+                        <input id="fileInput" type="file" class="form-control" multiple (change)="onChangeImageFileUpload($event)">
+
+                    </div>
+                    <div class="col-12 mt-3">
                         <button class="btn btn-primary btn-sm" type="submit">Update</button>
                     </div>
                 </div>

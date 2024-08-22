@@ -18,4 +18,5 @@ export class Request {
     wayBillNumber!: any;
     notice!: string;
     holdNotice!: string;
+    imageId! : string | null;
 }
