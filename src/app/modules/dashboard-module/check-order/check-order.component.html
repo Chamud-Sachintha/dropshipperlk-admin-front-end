@@ -72,6 +72,27 @@
                 
                 <div class="row">
                     <div class="col-12">
+                        <h5 class="card-header">Customer Informations</h5>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="">Customer Name:</label>
+                                        <p>{{ this.orderInfoModel.name }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Customer Address:</label>
+                                        <p>{{ this.orderInfoModel.address }}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="">Contact No:</label>
+                                        <p>{{ this.orderInfoModel.contact_1 }}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="">Contact No 2:</label>
+                                        <p>{{ this.orderInfoModel.contact_2 }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="card">
                             <h5 class="card-header">Additional Informations</h5>
                 
@@ -153,6 +174,17 @@
                                         <button class="btn btn-primary mt-4" (click)="onClickSetTrackingNumber(trackingNumber.value, courierName.value)">Update Tracking Number</button>
                                     </div>
                                 </div>
+
+                                <div class="row mt-2" *ngIf="this.isHoldOrderTrue">
+                                    <div class="col-12">
+                                        <label for="">Order Hold Notice</label>
+                                        <textarea name="" id="" class="form-control" #orderHoldNotice></textarea>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <button class="btn btn-primary" (click)="onClickSetHoldNoticeOrder(orderHoldNotice.value)">Set Hold Notice</button>
+                                    </div>
+                                </div>
+
                                 <div class="row mt-2" *ngIf="this.isShowReturn">
                                     <div class="col-md-2">
                                         <label for="">Return Package Status</label>
@@ -201,6 +233,20 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" *ngIf="this.orderInfoModel.remark != null">
+                            <h5 class="card-header">Order Remark</h5>
+                
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="alert alert-primary" role="alert">
+                                            {{ this.orderInfoModel.remark }}
+                                          </div>
                                     </div>
                                 </div>
                             </div>

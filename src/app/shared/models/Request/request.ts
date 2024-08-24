@@ -16,4 +16,7 @@ export class Request {
     returnstatus!: any;
     orderNumber!: any;
     wayBillNumber!: any;
+    notice!: string;
+    holdNotice!: string;
+    imageId! : string | null;
 }

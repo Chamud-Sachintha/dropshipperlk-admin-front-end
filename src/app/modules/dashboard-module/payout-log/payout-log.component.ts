@@ -14,14 +14,49 @@ export class PayoutLogComponent implements OnInit {
 
   requestParamModel = new Request();
   sellerList: PayOut[] = [];
+  totalPayOutAmount = 0;
+  totalPendingAmount = 0;
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 100;
+  searchText = '';
+  selectedFilter = '';
 
   constructor(private router: Router, private payOutService: PayOutService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.loadSellerList();
+    this.loadPayOutSummeryInfo();
+  }
+
+  filterPayOutList() {
+    const searchTextLower = this.searchText.toLowerCase();
+    console.log(searchTextLower)
+    switch (this.selectedFilter) {
+      case 'sellerName':
+        this.sellerList = this.sellerList.filter(payOut =>
+          payOut.resellerName.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      case 'sellerRef':
+        this.sellerList = this.sellerList.filter(payOut =>
+          payOut.resellerReferral.toString().toLowerCase().includes(searchTextLower)
+        );
+        break;
+      default:
+        
+    }
+  }
+
+  loadPayOutSummeryInfo() {
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+
+    this.payOutService.getPayOutSummeryInfo(this.requestParamModel).subscribe((resp: any) => {
+      if (resp.code === 1) {
+        this.totalPayOutAmount = resp.data[0].totalPauOutAmount;
+        this.totalPendingAmount = resp.data[0].totalPendingAmount;
+      }
+    })
   }
 
   pageChanged(event: any): void {

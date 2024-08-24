@@ -79,7 +79,7 @@
                                 </tr>
                             </thead>
                            <tbody>
-                            <tr *ngFor="let eachOrder of this.filteredOrderRequestList; index as i">
+                            <tr *ngFor="let eachOrder of this.filteredOrderRequestList | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; index as i">
                                 <td>{{ i + 1 }}</td>
                                 <td>{{ eachOrder.orderNumber }}</td>
                                 <td>{{ eachOrder.resellerName }}</td>

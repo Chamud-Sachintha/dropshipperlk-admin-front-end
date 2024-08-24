@@ -22,6 +22,7 @@ export class CheckOrderComponent implements OnInit {
   orderId!: string;
   isShowTrackingNumber = false;
   isShowReturn = false;
+  isHoldOrderTrue = false;
 
   constructor(private orderService: OrderService, private activatedRoute: ActivatedRoute
               , private tostr: ToastrService, private spinner: NgxSpinnerService) {}
@@ -68,6 +69,20 @@ export class CheckOrderComponent implements OnInit {
       }
 
       this.spinner.hide();
+    })
+  }
+
+  onClickSetHoldNoticeOrder(notice: string) {
+    this.requestParamModel.token = sessionStorage.getItem("authToken");
+    this.requestParamModel.orderId = this.orderId;
+    this.requestParamModel.notice = notice;
+
+    this.orderService.setHoldNoticeOdOrder(this.requestParamModel).subscribe((resp: any) => {
+      if (resp.code === 1) {
+        this.tostr.success("Order Hold Notice Saved.", "Set Hold Notice");
+      } else {
+        this.tostr.error("Error Occured", resp.message);
+      }
     })
   }
 
@@ -119,9 +134,11 @@ export class CheckOrderComponent implements OnInit {
       this.isShowTrackingNumber = true;
     } else if(orderStatus == "6"){
       this.isShowReturn = true;
-    }
-     else {
+    } else if (orderStatus == "1") {
+      this.isHoldOrderTrue = true;
+    } else {
       this.isShowTrackingNumber = false;
+      this.isHoldOrderTrue = false;
     }
   }
 
@@ -167,6 +184,19 @@ export class CheckOrderComponent implements OnInit {
         this.orderInfoModel.orderStatus = dataList.data[0].orderStatus;
         this.orderInfoModel.orderCancled = dataList.data[0].orderCancled;
         this.orderInfoModel.refundNotice = dataList.data[0].refundNotice;
+        this.orderInfoModel.remark = dataList.data[0].remark;
+
+        this.orderInfoModel.orderStatus = dataList.data[0].orderStatus;
+        this.orderInfoModel.paymentStatus = dataList.data[0].paymentStatus;
+        // this.orderInfoModel.cancleOrder = dataList.data[0].cancleOrder;
+        this.orderInfoModel.teamCommision = dataList.data[0].teamCommision;
+        this.orderInfoModel.directCommision = dataList.data[0].directCommision;
+        this.orderInfoModel.orderCancled = dataList.data[0].orderCancled;
+        this.orderInfoModel.name = dataList.data[0].resellname;
+        this.orderInfoModel.address = dataList.data[0].reselladdress;
+        this.orderInfoModel.contact_1 = dataList.data[0].resellcontact_1;
+        this.orderInfoModel.contact_2 = dataList.data[0].resellcontact_2;
+
        // this.orderInfoModel.trackingNumber = dataList.data[0].trackingNumber;
        // this.orderInfoModel.courierName = dataList.data[0].courierName;
         // this.orderInfoModel.image1 = environment.devServer + "images/" + dataList.data[0].images.image0;

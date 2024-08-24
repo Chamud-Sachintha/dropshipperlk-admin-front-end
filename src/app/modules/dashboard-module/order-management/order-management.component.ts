@@ -67,17 +67,20 @@ export class OrderManagementComponent implements OnInit {
   initbulkOrderChangeStatusForm() {
     this.bulkOrderChangeStatusForm = this.fb.group({
       orderStatus: ['', Validators.required],
+      holdNotice: ['', Validators.required]
     })
   }
 
   onSubmitBulkOrderChangeStatus() {
     const orderStatus = this.bulkOrderChangeStatusForm.controls['orderStatus'].value;
+    const holdNotice = this.bulkOrderChangeStatusForm.controls['holdNotice'].value;
 
     if (orderStatus == "") {
       this.toastr.error("Bulk Order Updation", "Order Status is Required.");
     } else {
       this.requestParamModel.orderNumbers = this.selectedOrderNumbers;
       this.requestParamModel.orderStatus = orderStatus;
+      this.requestParamModel.holdNotice = holdNotice;
       this.requestParamModel.token = sessionStorage.getItem("authToken");
 
       this.orderService.bulkOrderUpdate(this.requestParamModel).subscribe((resp: any) => {

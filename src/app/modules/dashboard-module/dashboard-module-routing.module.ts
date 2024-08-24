@@ -14,6 +14,7 @@ import { SiteSettingsComponent } from './site-settings/site-settings.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { CourierInfoComponent } from './courier-info/courier-info.component';
+import { CheckPayoutLogComponent } from './check-payout-log/check-payout-log.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,10 @@ const routes: Routes = [
   {
     path: 'payout-management/:sellerId',
     component: CheckPayoutComponent
+  },
+  {
+    path: 'check-payout-log/:sellerId',
+    component: CheckPayoutLogComponent
   },
   {
     path: 'site-settings',

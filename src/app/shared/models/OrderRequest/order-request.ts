@@ -26,4 +26,12 @@ export class OrderRequest {
     bank_slip!: any;
     OrderDate!:any;
     wayBill!: any;
+    remark!: string;
+    isStorePickupEnable!: boolean;
+    name!: string;
+    address!: string;
+    contact_1!: string;
+    contact_2!: string;
+    teamCommision!: string;
+    directCommision!: string;
 }
