@@ -131,9 +131,10 @@ export class OrderManagementComponent implements OnInit {
         );
         break;
       case 'wayBillNumber':
-        this.filteredOrderRequestList = this.orderRequestList.filter(order => {
+        console.log("sdasdsd")
+        this.filteredOrderRequestList = this.orderRequestList.filter(order => 
           order.wayBill.toString().toLowerCase().includes(searchTextLower)
-        });
+        );
         break;
       case 'courierName':
         this.filteredOrderRequestList = this.orderRequestList.filter(order =>
