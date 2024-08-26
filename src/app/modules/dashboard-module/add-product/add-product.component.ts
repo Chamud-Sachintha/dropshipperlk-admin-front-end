@@ -149,7 +149,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         if (resp.code === 1) {
          // console.log("Successfully Updated Product Info!",resp.code);
           this.tosr.success("Update Product", "Product Updated Successfully.");
-          window.location.reload();
+          // window.location.reload();
         } else {
           this.tosr.error("Update Product", resp.message);
         }
