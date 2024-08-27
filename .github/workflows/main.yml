@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - common
-  workflow_dispatch:  # Allows manual triggering via GitHub's Actions tab
 jobs:
   build:
     runs-on: ubuntu-latest
