@@ -24,9 +24,13 @@
             <div class="card-body">
                 <form [formGroup]="wayBillRangeForm" (ngSubmit)="onSubmitWayBillRangeForm()">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <label for="">CeylonEx Waybill Range:</label>
                             <input type="text" class="form-control" formControlName="range">
+                        </div>
+                        <div class="col-6">
+                            <label for="">Range Count</label>
+                            <p class="mt-2">{{ this.wayBillRangeCount }}</p>
                         </div>
                     </div>
                     <div class="row mt-3">

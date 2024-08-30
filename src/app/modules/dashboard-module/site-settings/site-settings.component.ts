@@ -18,6 +18,7 @@ export class SiteSettingsComponent implements OnInit {
   wayBillRangeForm!: FormGroup;
   siteBannerModel = new SiteBanner();
   configModel = new Config();
+  wayBillRangeCount = 0;
 
   constructor(private settingsService: SettingsService, private tostrService: ToastrService, private formBuilder: FormBuilder
             , private configService: ConfigService, private spinner: NgxSpinnerService
@@ -40,6 +41,13 @@ export class SiteSettingsComponent implements OnInit {
         this.wayBillRangeForm.controls['range'].setValue(resp.data[0].value);
       }
     })
+
+    this.configModel.configName = "wayBillRangeCount";
+    this.configService.findConfigByName(this.configModel).subscribe((resp: any) => {
+      if (resp.code === 1) {
+        this.wayBillRangeCount = resp.data[0].value;
+      }
+    })
   }
 
   onSubmitWayBillRangeForm() {
@@ -52,10 +60,13 @@ export class SiteSettingsComponent implements OnInit {
       this.configModel.configName = "wayBillRange";
       this.configModel.configValue = wayBillRange;
 
+      var rangeSplitValue = wayBillRange.split("-");
+      var range = (parseInt(rangeSplitValue[1]) - parseInt(rangeSplitValue[0]));
+
       this.spinner.show();
       this.configService.addNewConfig(this.configModel).subscribe((resp: any) => {
         if (resp.code === 1) {
-          this.tostrService.success("Config Added Suuceesfully.", "Config Add.");
+          this.addWayBillRangeCount(range);
         } else {
           this.tostrService.error(resp.message, "Config Add.");
         }
@@ -63,6 +74,20 @@ export class SiteSettingsComponent implements OnInit {
         this.spinner.hide();
       })
     }
+  }
+
+  addWayBillRangeCount(range: number) {
+    this.configModel.token = sessionStorage.getItem("authToken");
+    this.configModel.configName = "wayBillRangeCount";
+    this.configModel.configValue = range.toString();
+
+    this.configService.addNewConfig(this.configModel).subscribe((resp: any) => {
+      if (resp.code === 1) {
+        this.tostrService.success("Config Added Suuceesfully.", "Config Add.");
+      } else {
+        this.tostrService.error(resp.message, "Config Add.");
+      }
+    })
   }
 
   initCreateWayBillRangeForm() {
